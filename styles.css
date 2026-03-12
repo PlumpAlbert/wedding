@@ -17,12 +17,14 @@
     --text-dark: #5d4037;
 }
 
+/* Base mobile styles */
 body {
     font-family: 'Raleway', sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
     overflow-x: hidden;
     background-color: var(--cream);
+    font-size: 16px;
 }
 
 /* Handwritten Font */
@@ -54,32 +56,34 @@ body {
 }
 
 #hero h1 {
-    font-size: 7rem;
+    font-size: 3.5rem;
     margin-bottom: 1rem;
     line-height: 1.2;
+    text-align: center;
+    padding: 0 1rem;
 }
 
 #hero .date, #hero .location {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin-bottom: 0.5rem;
     font-weight: 300;
 }
 
 /* Content Sections */
 .content-section {
-    padding: 5rem 2rem;
+    padding: 3rem 1rem;
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
 }
 
 .content-section h2 {
     text-align: center;
-    font-size: 3.5rem;
-    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
     color: var(--olive-green);
 }
 
@@ -89,14 +93,14 @@ body {
 }
 
 #story .story-content {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     text-align: center;
 }
 
 #story p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
 }
 
 /* Dress Code Section */
@@ -105,14 +109,14 @@ body {
 }
 
 #dress-code .dress-code-content {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     text-align: center;
 }
 
 #dress-code p {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem;
 }
 
 #dress-code strong {
@@ -126,24 +130,25 @@ body {
 
 #countdown .countdown {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
 }
 
 .countdown-item {
-    margin: 0 2rem;
+    margin: 0.5rem 0;
     text-align: center;
 }
 
 .countdown-item .number {
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: 700;
     display: block;
     color: var(--soft-pink);
 }
 
 .countdown-item .label {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: white;
@@ -155,15 +160,15 @@ body {
 }
 
 .details-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
 }
 
 .detail-card {
     background-color: white;
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 5px 15px rgba(138, 155, 108, 0.2);
@@ -171,7 +176,7 @@ body {
 }
 
 .detail-card h3 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin-bottom: 1rem;
     color: var(--olive-green);
 }
@@ -185,13 +190,13 @@ body {
     background-color: var(--olive-green);
     color: white;
     border: none;
-    padding: 1rem 2rem;
-    font-size: 1.2rem;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
     border-radius: 50px;
     cursor: pointer;
-    margin-top: 2rem;
+    margin-top: 1.5rem;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(138, 155, 108, 0.3);
     border: 2px solid white;
@@ -212,62 +217,108 @@ footer {
     background-color: var(--olive-green);
     color: white;
     text-align: center;
-    padding: 3rem 2rem;
+    padding: 2rem 1rem;
 }
 
 footer .handwritten {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
     display: block;
 }
 
 footer p {
     opacity: 0.9;
+    font-size: 0.9rem;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
+/* Desktop styles */
+@media (min-width: 769px) {
+    body {
+        font-size: 18px;
+    }
+    
     #hero h1 {
-        font-size: 3.5rem;
+        font-size: 5rem;
+        padding: 0;
     }
     
     #hero .date, #hero .location {
-        font-size: 1.5rem;
-    }
-    
-    .content-section h2 {
-        font-size: 2.5rem;
-    }
-    
-    .countdown {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .countdown-item {
-        margin: 1rem 0;
-    }
-    
-    .countdown-item .number {
-        font-size: 3rem;
-    }
-}
-
-@media (max-width: 480px) {
-    #hero h1 {
-        font-size: 2.5rem;
-    }
-    
-    .content-section h2 {
         font-size: 2rem;
     }
     
+    .content-section {
+        padding: 5rem 2rem;
+    }
+    
+    .container {
+        max-width: 1200px;
+        padding: 0 2rem;
+    }
+    
+    .content-section h2 {
+        font-size: 3.5rem;
+        margin-bottom: 3rem;
+    }
+    
+    #story .story-content {
+        max-width: 800px;
+        font-size: 1.2rem;
+    }
+    
+    #dress-code .dress-code-content {
+        max-width: 800px;
+        font-size: 1.2rem;
+    }
+    
+    #countdown .countdown {
+        flex-direction: row;
+        margin-top: 2rem;
+    }
+    
+    .countdown-item {
+        margin: 0 2rem;
+    }
+    
     .countdown-item .number {
-        font-size: 2.5rem;
+        font-size: 4rem;
+    }
+    
+    .countdown-item .label {
+        font-size: 1.5rem;
+    }
+    
+    .details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .detail-card {
+        padding: 2rem;
+    }
+    
+    .detail-card h3 {
+        font-size: 2rem;
     }
     
     .rsvp-btn {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+    }
+    
+    footer {
+        padding: 3rem 2rem;
+    }
+    
+    footer .handwritten {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+}
+
+@media (min-width: 1025px) {
+    #hero h1 {
+        font-size: 7rem;
     }
 }
