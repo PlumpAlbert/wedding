@@ -154,14 +154,4 @@ gsap.from(".rsvp-btn", {
     }
 });
 
-// Floating animation for handwritten text
-const handwrittenElements = document.querySelectorAll('.handwritten');
-handwrittenElements.forEach(element => {
-    gsap.to(element, {
-        y: -10,
-        duration: 3,
-        ease: "power1.inOut",
-        repeat: -1,
-        yoyo: true
-    });
-});
+// Removed floating animation for handwritten text as per request
