@@ -10,6 +10,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 </head>
 <body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="handwritten">Анна & Михаил</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#hero" class="nav-link">Главная</a></li>
+                <li class="nav-item"><a href="#story" class="nav-link">История</a></li>
+                <li class="nav-item"><a href="#details" class="nav-link">Детали</a></li>
+                <li class="nav-item"><a href="#gallery" class="nav-link">Галерея</a></li>
+                <li class="nav-item"><a href="#rsvp" class="nav-link">RSVP</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+    
     <header class="parallax-section" id="hero">
         <div class="content">
             <h1 class="handwritten">Наша вечная история начинается</h1>
@@ -78,10 +98,46 @@
             <h2 class="handwritten">Дресс-код</h2>
             <div class="dress-code-content">
                 <p>Чтобы этот день был красивым, просим Вас выбрать для своего наряда <strong>следующие оттенки</strong></p>
+                
+                <div class="color-palette">
+                    <div class="color-swatch" style="background-color: #f8c6d0;" title="Нежно-розовый"></div>
+                    <div class="color-swatch" style="background-color: #e8a5b8;" title="Пыльная роза"></div>
+                    <div class="color-swatch" style="background-color: #f2d0dc;" title="Бледно-розовый"></div>
+                    <div class="color-swatch" style="background-color: #8a9b6c;" title="Оливковый зеленый"></div>
+                    <div class="color-swatch" style="background-color: #b8c9a8;" title="Шалфейный зеленый"></div>
+                    <div class="color-swatch" style="background-color: #6b7a4f;" title="Темный оливковый"></div>
+                </div>
             </div>
         </div>
     </section>
-
+    
+    <!-- Gallery Section -->
+    <section class="content-section" id="gallery">
+        <div class="container">
+            <h2 class="handwritten">Наша любовь в кадрах</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/600x800/?couple,love,romance" alt="Свадебная фотография 1">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/600x800/?couple,engagement,romantic" alt="Свадебная фотография 2">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/600x800/?couple,beach,romance" alt="Свадебная фотография 3">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/600x800/?couple,portrait,love" alt="Свадебная фотография 4">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/600x800/?couple,forest,romance" alt="Свадебная фотография 5">
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/600x800/?couple,city,night" alt="Свадебная фотография 6">
+                </div>
+            </div>
+        </div>
+    </section>
+    
     <section class="parallax-section" id="rsvp">
         <div class="content">
             <h2 class="handwritten">Мы будем рады видеть вас!</h2>
