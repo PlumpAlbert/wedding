@@ -1,0 +1,272 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Color Variables */
+:root {
+    --soft-pink: #f8c6d0;
+    --dusty-rose: #e8a5b8;
+    --blush-pink: #f2d0dc;
+    --olive-green: #8a9b6c;
+    --sage-green: #b8c9a8;
+    --dark-olive: #6b7a4f;
+    --cream: #fdf6f0;
+    --text-dark: #5d4037;
+}
+
+body {
+    font-family: 'Raleway', sans-serif;
+    line-height: 1.6;
+    color: var(--text-dark);
+    overflow-x: hidden;
+    background-color: var(--cream);
+}
+
+/* Handwritten Font */
+.handwritten {
+    font-family: 'Great Vibes', cursive;
+    color: var(--olive-green);
+}
+
+/* Parallax Sections */
+.parallax-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+/* Hero Section */
+#hero {
+    background-image: linear-gradient(rgba(107, 122, 79, 0.5), rgba(107, 122, 79, 0.5)), url('https://source.unsplash.com/random/1920x1080/?roses,flowers,pink');
+}
+
+#hero h1 {
+    font-size: 5rem;
+    margin-bottom: 1rem;
+}
+
+#hero .date, #hero .location {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+}
+
+/* Content Sections */
+.content-section {
+    padding: 5rem 2rem;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.content-section h2 {
+    text-align: center;
+    font-size: 3.5rem;
+    margin-bottom: 3rem;
+    color: var(--olive-green);
+}
+
+/* Our Story Section */
+#story {
+    background-color: var(--blush-pink);
+}
+
+#story .story-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+#story p {
+    margin-bottom: 1.5rem;
+}
+
+/* Dress Code Section */
+#dress-code {
+    background-color: var(--cream);
+}
+
+#dress-code .dress-code-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+#dress-code p {
+    margin-bottom: 1.5rem;
+}
+
+#dress-code strong {
+    color: var(--olive-green);
+}
+
+/* Countdown Section */
+#countdown {
+    background-image: linear-gradient(rgba(107, 122, 79, 0.6), rgba(107, 122, 79, 0.6)), url('https://source.unsplash.com/random/1920x1080/?flowers,roses');
+}
+
+#countdown .countdown {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.countdown-item {
+    margin: 0 2rem;
+    text-align: center;
+}
+
+.countdown-item .number {
+    font-size: 4rem;
+    font-weight: 700;
+    display: block;
+    color: var(--soft-pink);
+}
+
+.countdown-item .label {
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: white;
+}
+
+/* Event Details Section */
+#details {
+    background-color: var(--cream);
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.detail-card {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(138, 155, 108, 0.2);
+    border: 1px solid var(--sage-green);
+}
+
+.detail-card h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--olive-green);
+}
+
+/* RSVP Section */
+#rsvp {
+    background-image: linear-gradient(rgba(107, 122, 79, 0.6), rgba(107, 122, 79, 0.6)), url('https://source.unsplash.com/random/1920x1080/?celebration,roses,pink');
+}
+
+.rsvp-btn {
+    background-color: var(--olive-green);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 600;
+    border-radius: 50px;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(138, 155, 108, 0.3);
+    border: 2px solid white;
+}
+
+.rsvp-btn:hover {
+    background-color: var(--dark-olive);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(138, 155, 108, 0.4);
+}
+
+.rsvp-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Footer */
+footer {
+    background-color: var(--olive-green);
+    color: white;
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+footer .handwritten {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+footer p {
+    opacity: 0.9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #hero h1 {
+        font-size: 3.5rem;
+    }
+    
+    #hero .date, #hero .location {
+        font-size: 1.5rem;
+    }
+    
+    .content-section h2 {
+        font-size: 2.5rem;
+    }
+    
+    .countdown {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .countdown-item {
+        margin: 1rem 0;
+    }
+    
+    .countdown-item .number {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    #hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .content-section h2 {
+        font-size: 2rem;
+    }
+    
+    .countdown-item .number {
+        font-size: 2.5rem;
+    }
+    
+    .rsvp-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+}
