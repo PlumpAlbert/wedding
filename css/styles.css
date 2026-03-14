@@ -1,3 +1,7 @@
+/* ========================================
+   GLOBAL STYLES
+   ======================================== */
+
 /* Reset and Base Styles */
 * {
   margin: 0;
@@ -14,9 +18,17 @@
   --black: #241e19;
   --bg-white: #fff4e3;
   --bg-green: #E6E7D9;
+  --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 5px 15px rgba(105, 124, 96, 0.2);
+  --shadow-heavy: 0 10px 20px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 15px 30px rgba(0, 0, 0, 0.2);
+  --transition-standard: all 0.3s ease;
+  --transition-transform: transform 0.3s ease;
+  --transition-color: color 0.3s ease;
+  --transition-width: width 0.3s ease;
 }
 
-/* Base mobile styles */
+/* Base Typography */
 html,
 body {
   font-family: "Raleway", sans-serif;
@@ -27,12 +39,15 @@ body {
   font-size: 16px;
 }
 
-/* Handwritten Font */
+/* Font Styles */
 .handwritten {
   font-family: "Great Vibes", cursive;
 }
 
-/* Parallax Sections */
+/* ========================================
+   PARALLAX SECTIONS
+   ======================================== */
+
 .parallax-section {
   height: 100vh;
   display: flex;
@@ -57,7 +72,10 @@ body {
   transform: scale(1.01);
 }
 
-/* Hero Section */
+/* ========================================
+   HERO SECTION
+   ======================================== */
+
 #hero {
   background-color: var(--bg-green);
   position: relative;
@@ -97,7 +115,10 @@ body {
   font-weight: 300;
 }
 
-/* Content Sections */
+/* ========================================
+   CONTENT SECTIONS
+   ======================================== */
+
 .content-section {
   padding: 2rem 1rem;
 }
@@ -115,7 +136,10 @@ body {
   color: var(--dark-green);
 }
 
-/* Our Story Section */
+/* ========================================
+   STORY SECTION
+   ======================================== */
+
 #story {
   background-color: var(--white);
 }
@@ -131,7 +155,10 @@ body {
   margin-bottom: 1.2rem;
 }
 
-/* Dress Code Section */
+/* ========================================
+   DRESS CODE SECTION
+   ======================================== */
+
 #dress-code {
   background-color: var(--bg-white);
 }
@@ -151,7 +178,7 @@ body {
   color: var(--dark-green);
 }
 
-/* Dress Code Color Palette */
+/* Color Palette */
 .color-palette {
   display: flex;
   justify-content: center;
@@ -166,17 +193,20 @@ body {
   height: 60px;
   border-radius: 50%;
   border: 3px solid white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition-standard);
   cursor: pointer;
 }
 
 .color-swatch:hover {
   transform: scale(1.2);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-medium);
 }
 
-/* Countdown Section */
+/* ========================================
+   COUNTDOWN SECTION
+   ======================================== */
+
 #countdown {
   background-color: var(--bg-green);
 }
@@ -230,7 +260,10 @@ body {
   color: white;
 }
 
-/* Event Details Section */
+/* ========================================
+   DETAILS SECTION
+   ======================================== */
+
 #details {
   background-color: var(--bg-white);
 }
@@ -247,14 +280,14 @@ body {
   padding: 1rem;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 5px 15px rgba(105, 124, 96, 0.2);
+  box-shadow: var(--shadow-medium);
   border: 1px solid var(--dark-green);
-  transition: all 0.3s ease;
+  transition: var(--transition-standard);
 }
 
 .detail-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(138, 155, 108, 0.3);
+  box-shadow: var(--shadow-heavy);
 }
 
 .detail-card h3 {
@@ -263,7 +296,10 @@ body {
   color: var(--dark-green);
 }
 
-/* RSVP Section */
+/* ========================================
+   RSVP SECTION
+   ======================================== */
+
 #rsvp {
   background-color: var(--bg-green);
 }
@@ -279,22 +315,25 @@ body {
   border-radius: 50px;
   cursor: pointer;
   margin-top: 1.5rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(138, 155, 108, 0.3);
+  transition: var(--transition-standard);
+  box-shadow: var(--shadow-light);
   border: 2px solid white;
 }
 
 .rsvp-btn:hover {
   background-color: var(--dark-green);
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(138, 155, 108, 0.4);
+  box-shadow: var(--shadow-medium);
 }
 
 .rsvp-btn:active {
   transform: translateY(-1px);
 }
 
-/* Footer */
+/* ========================================
+   FOOTER
+   ======================================== */
+
 footer {
   background-color: var(--dark-green);
   color: white;
@@ -313,7 +352,10 @@ footer p {
   font-size: 0.9rem;
 }
 
-/* Navigation Styles */
+/* ========================================
+   NAVIGATION
+   ======================================== */
+
 .navbar {
   position: fixed;
   top: 0;
@@ -322,7 +364,7 @@ footer p {
   background-color: rgba(253, 246, 240, 0.95);
   backdrop-filter: blur(10px);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  transition: var(--transition-standard);
   height: 3.5rem;
 }
 
@@ -396,7 +438,7 @@ footer p {
   height: 3px;
   background-color: var(--black);
   margin: 3px 0;
-  transition: 0.3s;
+  transition: var(--transition-standard);
 }
 
 .nav-toggle.active span:nth-child(1) {
@@ -419,7 +461,7 @@ footer p {
   background-color: var(--bg-white);
   width: 100%;
   text-align: center;
-  transition: 0.3s;
+  transition: var(--transition-standard);
   box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
   padding: 1rem 0;
 }
@@ -428,7 +470,10 @@ footer p {
   left: 0;
 }
 
-/* Gallery Section */
+/* ========================================
+   GALLERY SECTION
+   ======================================== */
+
 #gallery {
   background-color: var(--bg-white);
   text-align: center;
@@ -450,8 +495,8 @@ footer p {
 .gallery-item {
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  box-shadow: var(--shadow-light);
+  transition: var(--transition-standard);
   height: 250px;
 }
 
@@ -464,7 +509,7 @@ footer p {
 
 .gallery-item:hover {
   transform: translateY(-10px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-hover);
 }
 
 .gallery-item:hover img {
