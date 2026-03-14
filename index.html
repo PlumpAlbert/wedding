@@ -1,141 +1,181 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Свадебное приглашение</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;700&family=Nunito+Sans:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script defer src="js/script.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <header class="parallax-section" id="hero">
-        <div class="hero-decoration hero-decoration--top">
-            <object type="image/svg+xml" data="img/assets/hero_top.svg" width="100%" ></object>
-        </div>
-        <div class="content">
-            <h1 class="handwritten">Наша вечная история начинается</h1>
-            <p class="date">24 июня 2026</p>
-            <p class="location">Россия, г. Санкт-Петербург</p>
-        </div>
-        <div class="hero-decoration hero-decoration--bottom">
-            <object type="image/svg+xml" data="img/assets/hero_bottom.svg" width="100%"></object>
-        </div>
+      <div class="hero-decoration hero-decoration--top">
+        <object
+          type="image/svg+xml"
+          data="img/assets/hero_top.svg"
+          width="100%"
+        ></object>
+      </div>
+      <div class="content handwritten">
+        <h1>Наша вечная история начинается</h1>
+        <p class="date">24 июня 2026</p>
+        <p class="location">Россия, г. Санкт-Петербург</p>
+      </div>
+      <div class="hero-decoration hero-decoration--bottom">
+        <object
+          type="image/svg+xml"
+          data="img/assets/hero_bottom.svg"
+          width="100%"
+        ></object>
+      </div>
     </header>
 
     <section class="content-section" id="story">
-        <div class="container">
-            <h2 class="handwritten">Наша история</h2>
-            <div class="story-content">
-                <p>Всё началось в один солнечный день в Париже...</p>
-                <p>Наш путь был наполнен смехом, приключениями и бесчисленными чашками кофе.</p>
-                <p>Теперь мы готовы начать наше великое приключение - брак.</p>
-            </div>
+      <div class="container">
+        <h2 class="handwritten">Наша история</h2>
+        <div class="story-content">
+          <p>Всё началось в один солнечный день в Париже...</p>
+          <p>
+            Наш путь был наполнен смехом, приключениями и бесчисленными чашками
+            кофе.
+          </p>
+          <p>Теперь мы готовы начать наше великое приключение - брак.</p>
         </div>
+      </div>
     </section>
 
     <section class="parallax-section" id="countdown">
-        <div class="content">
-            <h2 class="handwritten">Сохраните дату</h2>
-            <div class="countdown">
-                <div class="countdown-item">
-                    <span class="number" id="days">00</span>
-                    <span class="label">Дней</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="number" id="hours">00</span>
-                    <span class="label">Часов</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="number" id="minutes">00</span>
-                    <span class="label">Минут</span>
-                </div>
-                <div class="countdown-item">
-                    <span class="number" id="seconds">00</span>
-                    <span class="label">Секунд</span>
-                </div>
-            </div>
+      <div class="content">
+        <h2 class="handwritten">Сохраните дату</h2>
+        <div class="countdown">
+          <div class="countdown-item">
+            <span class="number" id="days">00</span>
+            <span class="label">Дней</span>
+          </div>
+          <div class="countdown-item">
+            <span class="number" id="hours">00</span>
+            <span class="label">Часов</span>
+          </div>
+          <div class="countdown-item">
+            <span class="number" id="minutes">00</span>
+            <span class="label">Минут</span>
+          </div>
+          <div class="countdown-item">
+            <span class="number" id="seconds">00</span>
+            <span class="label">Секунд</span>
+          </div>
         </div>
+      </div>
     </section>
 
     <section class="content-section" id="details">
-        <div class="container">
-            <h2 class="handwritten">Детали события</h2>
-            <div class="details-grid">
-                <div class="detail-card">
-                    <h3>Церемония</h3>
-                    <p><strong>Время:</strong> 16:00</p>
-                    <p><strong>Место:</strong> Церковь Голубого Купола</p>
-                    <p>Санторини, Греция</p>
-                </div>
-                <div class="detail-card">
-                    <h3>Вечеринка</h3>
-                    <p><strong>Время:</strong> 18:00</p>
-                    <p><strong>Место:</strong> Виноградник Заката</p>
-                    <p>Санторини, Греция</p>
-                </div>
-            </div>
+      <div class="container">
+        <h2 class="handwritten">Детали события</h2>
+        <div class="details-grid">
+          <div class="detail-card">
+            <h3>Церемония</h3>
+            <p><strong>Время:</strong> 16:00</p>
+            <p><strong>Место:</strong> Церковь Голубого Купола</p>
+            <p>Санторини, Греция</p>
+          </div>
+          <div class="detail-card">
+            <h3>Вечеринка</h3>
+            <p><strong>Время:</strong> 18:00</p>
+            <p><strong>Место:</strong> Виноградник Заката</p>
+            <p>Санторини, Греция</p>
+          </div>
         </div>
+      </div>
     </section>
 
     <section class="content-section" id="dress-code">
-        <div class="container">
-            <h2 class="handwritten">Дресс-код</h2>
-            <div class="dress-code-content">
-                <p>Чтобы этот день был красивым, просим Вас выбрать для своего наряда <strong>следующие оттенки</strong></p>
-                
-                <div class="color-palette">
-                    <div class="color-swatch" style="background-color: #f8c6d0;" title="Нежно-розовый"></div>
-                    <div class="color-swatch" style="background-color: #e8a5b8;" title="Пыльная роза"></div>
-                    <div class="color-swatch" style="background-color: #f2d0dc;" title="Бледно-розовый"></div>
-                    <div class="color-swatch" style="background-color: #8a9b6c;" title="Оливковый зеленый"></div>
-                    <div class="color-swatch" style="background-color: #b8c9a8;" title="Шалфейный зеленый"></div>
-                    <div class="color-swatch" style="background-color: #6b7a4f;" title="Темный оливковый"></div>
-                </div>
-            </div>
+      <div class="container">
+        <h2 class="handwritten">Дресс-код</h2>
+        <div class="dress-code-content">
+          <p>
+            Чтобы этот день был красивым, просим Вас выбрать для своего наряда
+            <strong>следующие оттенки</strong>
+          </p>
+
+          <div class="color-palette">
+            <div
+              class="color-swatch"
+              style="background-color: #f8c6d0"
+              title="Нежно-розовый"
+            ></div>
+            <div
+              class="color-swatch"
+              style="background-color: #e8a5b8"
+              title="Пыльная роза"
+            ></div>
+            <div
+              class="color-swatch"
+              style="background-color: #f2d0dc"
+              title="Бледно-розовый"
+            ></div>
+            <div
+              class="color-swatch"
+              style="background-color: #8a9b6c"
+              title="Оливковый зеленый"
+            ></div>
+            <div
+              class="color-swatch"
+              style="background-color: #b8c9a8"
+              title="Шалфейный зеленый"
+            ></div>
+            <div
+              class="color-swatch"
+              style="background-color: #6b7a4f"
+              title="Темный оливковый"
+            ></div>
+          </div>
         </div>
+      </div>
     </section>
-    
+
     <!-- Gallery Section -->
     <section class="content-section" id="gallery">
-        <div class="container">
-            <h2 class="handwritten">Наша любовь в кадрах</h2>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="img/assets/gallery/1.jpg" alt="Свадебная фотография 1">
-                </div>
-                <div class="gallery-item">
-                    <img src="img/assets/gallery/2.jpg" alt="Свадебная фотография 2">
-                </div>
-                <div class="gallery-item">
-                    <img src="img/assets/gallery/3.jpg" alt="Свадебная фотография 3">
-                </div>
-                <div class="gallery-item">
-                    <img src="img/assets/gallery/4.jpg" alt="Свадебная фотография 4">
-                </div>
-                <div class="gallery-item">
-                    <img src="img/assets/gallery/5.jpg" alt="Свадебная фотография 5">
-                </div>
-                <div class="gallery-item">
-                    <img src="img/assets/gallery/6.jpg" alt="Свадебная фотография 6">
-                </div>
-            </div>
+      <div class="container">
+        <h2 class="handwritten">Наша любовь в кадрах</h2>
+        <div class="gallery-grid">
+          <div class="gallery-item">
+            <img src="img/assets/gallery/1.jpg" alt="Свадебная фотография 1" />
+          </div>
+          <div class="gallery-item">
+            <img src="img/assets/gallery/2.jpg" alt="Свадебная фотография 2" />
+          </div>
+          <div class="gallery-item">
+            <img src="img/assets/gallery/3.jpg" alt="Свадебная фотография 3" />
+          </div>
+          <div class="gallery-item">
+            <img src="img/assets/gallery/4.jpg" alt="Свадебная фотография 4" />
+          </div>
+          <div class="gallery-item">
+            <img src="img/assets/gallery/5.jpg" alt="Свадебная фотография 5" />
+          </div>
+          <div class="gallery-item">
+            <img src="img/assets/gallery/6.jpg" alt="Свадебная фотография 6" />
+          </div>
         </div>
+      </div>
     </section>
-    
+
     <section class="parallax-section" id="rsvp">
-        <div class="content">
-            <h2 class="handwritten">Мы будем рады видеть вас!</h2>
-            <button class="rsvp-btn">Подтвердить участие</button>
-        </div>
+      <div class="content">
+        <h2 class="handwritten">Мы будем рады видеть вас!</h2>
+        <button class="rsvp-btn">Подтвердить участие</button>
+      </div>
     </section>
 
     <footer>
-        <p class="handwritten">С любовью, Зоя и Матвей</p>
-        <p>&copy; 2026 Все права защищены</p>
+      <p class="handwritten">С любовью, Зоя и Матвей</p>
+      <p>&copy; 2026 Все права защищены</p>
     </footer>
-
-</body>
+  </body>
 </html>

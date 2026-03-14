@@ -31,7 +31,7 @@
 /* Base Typography */
 html,
 body {
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   line-height: 1.6;
   color: var(--black);
   overflow-x: hidden;
@@ -110,9 +110,8 @@ body {
 
 #hero .date,
 #hero .location {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  font-weight: 300;
+  font-size: 1.5rem;
+  color: var(--dark-green);
 }
 
 /* ========================================
@@ -310,7 +309,7 @@ body {
   border: none;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
   border-radius: 50px;
   cursor: pointer;
@@ -397,7 +396,7 @@ footer p {
 .nav-link {
   text-decoration: none;
   color: var(--black);
-  font-family: "Raleway", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
   text-transform: uppercase;
