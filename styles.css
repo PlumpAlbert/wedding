@@ -7,30 +7,26 @@
 
 /* Color Variables */
 :root {
-  --soft-pink: #f8c6d0;
-  --dusty-rose: #e8a5b8;
-  --blush-pink: #f2d0dc;
-  --olive-green: #8a9b6c;
-  --sage-green: #b8c9a8;
-  --dark-olive: #6b7a4f;
-  --cream: #fdf6f0;
-  --text-dark: #5d4037;
+  --black-pink: #f79aaf;
+  --light-green: #99A982;
+  --dark-green: #697C60;
+  --white: #FFF4E3;
+  --black: #241E19;
 }
 
 /* Base mobile styles */
 html, body {
   font-family: "Raleway", sans-serif;
   line-height: 1.6;
-  color: var(--text-dark);
+  color: var(--black);
   overflow-x: hidden;
-  background-color: var(--cream);
+  background-color: var(--white);
   font-size: 16px;
 }
 
 /* Handwritten Font */
 .handwritten {
   font-family: "Great Vibes", cursive;
-  color: var(--dark-olive);
 }
 
 /* Parallax Sections */
@@ -113,12 +109,12 @@ html, body {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 1.5rem;
-  color: var(--olive-green);
+  color: var(--dark-green);
 }
 
 /* Our Story Section */
 #story {
-  background-color: var(--blush-pink);
+  background-color: var(--white);
 }
 
 #story .story-content {
@@ -134,7 +130,7 @@ html, body {
 
 /* Dress Code Section */
 #dress-code {
-  background-color: var(--cream);
+  background-color: var(--white);
 }
 
 #dress-code .dress-code-content {
@@ -149,7 +145,7 @@ html, body {
 }
 
 #dress-code strong {
-  color: var(--olive-green);
+  color: var(--dark-green);
 }
 
 /* Dress Code Color Palette */
@@ -223,7 +219,7 @@ html, body {
   font-size: 2rem;
   font-weight: 700;
   display: block;
-  color: var(--soft-pink);
+  color: var(--black-pink);
 }
 
 .countdown-item .label {
@@ -235,7 +231,7 @@ html, body {
 
 /* Event Details Section */
 #details {
-  background-color: var(--cream);
+  background-color: var(--white);
 }
 
 .details-grid {
@@ -250,8 +246,8 @@ html, body {
   padding: 1rem;
   border-radius: 10px;
   text-align: center;
-  box-shadow: 0 5px 15px rgba(138, 155, 108, 0.2);
-  border: 1px solid var(--sage-green);
+  box-shadow: 0 5px 15px rgba(105, 124, 96, 0.2);
+  border: 1px solid var(--dark-green);
   transition: all 0.3s ease;
 }
 
@@ -263,7 +259,7 @@ html, body {
 .detail-card h3 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: var(--olive-green);
+  color: var(--dark-green);
 }
 
 /* RSVP Section */
@@ -274,7 +270,7 @@ html, body {
 }
 
 .rsvp-btn {
-  background-color: var(--olive-green);
+  background-color: var(--dark-green);
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -290,7 +286,7 @@ html, body {
 }
 
 .rsvp-btn:hover {
-  background-color: var(--dark-olive);
+  background-color: var(--dark-green);
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(138, 155, 108, 0.4);
 }
@@ -301,7 +297,7 @@ html, body {
 
 /* Footer */
 footer {
-  background-color: var(--olive-green);
+  background-color: var(--dark-green);
   color: white;
   text-align: center;
   padding: 1.5rem 1rem;
@@ -343,7 +339,7 @@ footer p {
 
 .nav-logo {
   font-size: 1.3rem;
-  color: var(--olive-green);
+  color: var(--dark-green);
 }
 
 .nav-menu {
@@ -359,7 +355,7 @@ footer p {
 
 .nav-link {
   text-decoration: none;
-  color: var(--text-dark);
+  color: var(--black);
   font-family: "Raleway", sans-serif;
   font-weight: 600;
   font-size: 0.9rem;
@@ -372,7 +368,7 @@ footer p {
 }
 
 .nav-link:hover {
-  color: var(--olive-green);
+  color: var(--dark-green);
 }
 
 .nav-link::after {
@@ -382,7 +378,7 @@ footer p {
   height: 2px;
   bottom: -5px;
   left: 0;
-  background-color: var(--olive-green);
+  background-color: var(--dark-green);
   transition: width 0.3s ease;
 }
 
@@ -399,7 +395,7 @@ footer p {
 .nav-toggle span {
   width: 25px;
   height: 3px;
-  background-color: var(--text-dark);
+  background-color: var(--black);
   margin: 3px 0;
   transition: 0.3s;
 }
@@ -421,7 +417,7 @@ footer p {
   left: -100%;
   top: 3.5rem;
   flex-direction: column;
-  background-color: var(--cream);
+  background-color: var(--white);
   width: 100%;
   text-align: center;
   transition: 0.3s;
@@ -435,12 +431,12 @@ footer p {
 
 /* Gallery Section */
 #gallery {
-  background-color: var(--blush-pink);
+  background-color: var(--white);
   text-align: center;
 }
 
 #gallery h2 {
-  color: var(--olive-green);
+  color: var(--dark-green);
   margin-bottom: 2rem;
   font-size: 2rem;
 }
