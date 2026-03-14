@@ -26,22 +26,28 @@
   --transition-transform: transform 0.3s ease;
   --transition-color: color 0.3s ease;
   --transition-width: width 0.3s ease;
+  --header-font: 'Great Vibes', cursive, serif;
+  --base-font: 'Jost', sans-serif;
 }
 
 /* Base Typography */
 html,
 body {
-  font-family: "Nunito Sans", sans-serif;
+  font-family: var(--base-font);
   line-height: 1.6;
   color: var(--black);
   overflow-x: hidden;
-  background-color: var(--white);
+  background-color: var(--bg-green);
   font-size: 16px;
 }
 
 /* Font Styles */
 .handwritten {
-  font-family: "Great Vibes", cursive;
+  font-family: var(--header-font);
+}
+
+.header {
+  font-family: 'Jost', sans-serif;
 }
 
 /* ========================================
@@ -139,19 +145,35 @@ body {
    STORY SECTION
    ======================================== */
 
-#story {
+#welcome-message {
   background-color: var(--white);
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-#story .story-content {
+#welcome-message .story-content {
   max-width: 100%;
   margin: 0 auto;
   font-size: 1.1rem;
   text-align: center;
 }
 
-#story p {
+#welcome-message p {
   margin-bottom: 1.2rem;
+}
+
+#welcome-message p.date {
+  font-size: 2rem;
+  opacity: 0.54;
+}
+
+#welcome-message p.location label {
+  color: var(--dark-green);
+  font-size: 2rem;
+  display: block;
 }
 
 /* ========================================
@@ -309,7 +331,7 @@ body {
   border: none;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
-  font-family: "Nunito Sans", sans-serif;
+  font-family: var(--base-font);
   font-weight: 600;
   border-radius: 50px;
   cursor: pointer;
@@ -396,7 +418,7 @@ footer p {
 .nav-link {
   text-decoration: none;
   color: var(--black);
-  font-family: "Nunito Sans", sans-serif;
+  font-family: var(--base-font);
   font-weight: 600;
   font-size: 0.9rem;
   text-transform: uppercase;
