@@ -17,7 +17,7 @@
   --white: #f9f5f0;
   --black: #241e19;
   --bg-white: #fff4e3;
-  --bg-green: #E6E7D9;
+  --bg-green: #e6e7d9;
   --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
   --shadow-medium: 0 5px 15px rgba(105, 124, 96, 0.2);
   --shadow-heavy: 0 10px 20px rgba(0, 0, 0, 0.1);
@@ -26,8 +26,8 @@
   --transition-transform: transform 0.3s ease;
   --transition-color: color 0.3s ease;
   --transition-width: width 0.3s ease;
-  --header-font: 'Great Vibes', cursive, serif;
-  --base-font: 'Jost', sans-serif;
+  --header-font: "Great Vibes", cursive, serif;
+  --base-font: "Jost", sans-serif;
 }
 
 /* Base Typography */
@@ -48,7 +48,7 @@ body {
 }
 
 .header {
-  font-family: 'Jost', sans-serif;
+  font-family: "Jost", sans-serif;
 }
 
 /* ========================================
@@ -235,10 +235,11 @@ body {
    ======================================== */
 
 #countdown {
-  background-color: var(--bg-green);
+  background-color: var(--dark-green);
   min-height: 100vh;
   height: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
@@ -381,10 +382,11 @@ footer {
   color: white;
   text-align: center;
   padding: 1.5rem 1rem;
+  position: relative;
 }
 
 footer .handwritten {
-  font-size: 1.8rem;
+  font-size: 2rem;
   margin-bottom: 0.6rem;
   display: block;
 }
@@ -394,122 +396,9 @@ footer p {
   font-size: 0.9rem;
 }
 
-/* ========================================
-   NAVIGATION
-   ======================================== */
-
-.navbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  background-color: rgba(253, 246, 240, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  transition: var(--transition-standard);
-  height: 3.5rem;
-}
-
-.nav-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 3.5rem;
-}
-
-.nav-logo {
-  font-size: 1.3rem;
-  color: var(--dark-green);
-}
-
-.nav-menu {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-item {
-  margin: 1.5rem 0;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: var(--black);
-  font-family: var(--base-font);
-  font-weight: 600;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: color 0.3s ease;
-  position: relative;
-  padding: 0.5rem 1rem;
-  display: block;
-}
-
-.nav-link:hover {
-  color: var(--dark-green);
-}
-
-.nav-link::after {
-  content: "";
+footer .copyright {
   position: absolute;
-  width: 0;
-  height: 2px;
-  bottom: -5px;
-  left: 0;
-  background-color: var(--dark-green);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-.nav-toggle {
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-}
-
-.nav-toggle span {
-  width: 25px;
-  height: 3px;
-  background-color: var(--black);
-  margin: 3px 0;
-  transition: var(--transition-standard);
-}
-
-.nav-toggle.active span:nth-child(1) {
-  transform: rotate(-45deg) translate(-5px, 6px);
-}
-
-.nav-toggle.active span:nth-child(2) {
-  opacity: 0;
-}
-
-.nav-toggle.active span:nth-child(3) {
-  transform: rotate(45deg) translate(-5px, -6px);
-}
-
-.nav-menu {
-  position: fixed;
-  left: -100%;
-  top: 3.5rem;
-  flex-direction: column;
-  background-color: var(--bg-white);
-  width: 100%;
-  text-align: center;
-  transition: var(--transition-standard);
-  box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-  padding: 1rem 0;
-}
-
-.nav-menu.active {
-  left: 0;
+  bottom: 1.5rem;
 }
 
 /* ========================================
