@@ -55,7 +55,8 @@ body {
    ======================================== */
 
 .parallax-section {
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,6 +69,7 @@ body {
   background-size: cover;
   color: white;
   transition: transform 0.3s ease;
+  z-index: 1;
 }
 
 .parallax-section--shadow {
@@ -126,6 +128,8 @@ body {
 
 .content-section {
   padding: 2rem 1rem;
+  position: relative;
+  z-index: 1;
 }
 
 .container {
@@ -147,7 +151,8 @@ body {
 
 #welcome-message {
   background-color: var(--white);
-  height: 100dvh;
+  min-height: 100dvh;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -230,6 +235,11 @@ body {
 
 #countdown {
   background-color: var(--bg-green);
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #countdown .countdown {
@@ -287,6 +297,11 @@ body {
 
 #details {
   background-color: var(--bg-white);
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .details-grid {
@@ -323,6 +338,11 @@ body {
 
 #rsvp {
   background-color: var(--bg-green);
+  min-height: 100vh;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .rsvp-btn {
@@ -535,4 +555,18 @@ footer p {
 
 .gallery-item:hover img {
   transform: scale(1.1);
+}
+
+/* ========================================
+   SCROLL ANIMATIONS (GSAP)
+   ======================================== */
+
+/* Prevent flash of un-animated content */
+.gsap-animate {
+  opacity: 0;
+}
+
+/* Optional: improve performance */
+.scroll-trigger {
+  will-change: transform, opacity;
 }
