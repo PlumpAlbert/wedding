@@ -294,7 +294,7 @@ body {
 }
 
 /* ========================================
-   DETAILS SECTION
+   DETAILS SECTION (TIMELINE)
    ======================================== */
 
 #details {
@@ -306,32 +306,115 @@ body {
   justify-content: center;
 }
 
-.details-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding-left: 2rem;
 }
 
-.detail-card {
-  background-color: white;
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--dark-green);
+  opacity: 0.3;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -2rem;
+  top: 0.5rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--dark-green);
+  border: 3px solid var(--bg-white);
+  box-shadow: 0 0 0 3px var(--dark-green);
+  z-index: 2;
+}
+
+.timeline-content {
+  margin-left: 2rem;
   padding: 1rem;
+  background-color: white;
   border-radius: 10px;
-  text-align: center;
   box-shadow: var(--shadow-medium);
   border: 1px solid var(--dark-green);
   transition: var(--transition-standard);
+  width: 100%;
 }
 
-.detail-card:hover {
+.timeline-content:hover {
   transform: translateY(-5px);
   box-shadow: var(--shadow-heavy);
 }
 
-.detail-card h3 {
-  font-size: 1.5rem;
-  margin-bottom: 1rem;
+.timeline-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.timeline-time {
+  font-weight: 700;
+  font-size: 1.2rem;
   color: var(--dark-green);
+}
+
+.timeline-separator {
+  color: var(--dark-green);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.timeline-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--dark-green);
+  font-family: var(--header-font);
+}
+
+.timeline-description {
+  font-size: 1rem;
+  color: var(--black);
+  line-height: 1.5;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .timeline {
+    padding-left: 1.5rem;
+  }
+  .timeline::before {
+    left: 15px;
+  }
+  .timeline-dot {
+    left: -1.5rem;
+  }
+  .timeline-content {
+    margin-left: 1.5rem;
+  }
+  .timeline-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .timeline-separator {
+    display: none;
+  }
 }
 
 /* ========================================
