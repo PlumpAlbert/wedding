@@ -106,19 +106,13 @@ body {
 
 .hero-particle {
   position: absolute;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background-color: var(--dark-green);
-  opacity: 0.15;
+  opacity: 0.22;
+  pointer-events: none;
 }
 
-.hero-particle--petal {
-  width: 10px;
-  height: 10px;
-  border-radius: 50% 0 50% 50%;
-  background-color: var(--black-pink);
-  opacity: 0.12;
+.hero-particle--heart {
+  font-size: clamp(20px, 4vw, 32px);
+  line-height: 1;
   transform: rotate(var(--rotate, 0deg));
 }
 
@@ -729,7 +723,7 @@ footer .copyright {
 
 /* Reduced motion: disable decorative motion */
 .reduce-motion .hero-particles,
-.reduce-motion .hero-particle {
+.reduce-motion .hero-particle--heart {
   display: none !important;
 }
 
