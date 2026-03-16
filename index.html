@@ -16,6 +16,7 @@
   </head>
   <body>
     <header class="parallax-section" id="hero">
+      <div class="hero-particles" id="hero-particles" aria-hidden="true"></div>
       <div class="hero-decoration hero-decoration--top">
         <object
           type="image/svg+xml"
@@ -56,10 +57,13 @@
       </div>
     </section>
 
+    <div class="section-divider" aria-hidden="true"><span class="section-divider-line"></span></div>
+
     <section class="content-section" id="details">
       <div class="container">
         <h2 class="handwritten">Программа дня</h2>
         <div class="timeline">
+          <div class="timeline-line" aria-hidden="true"></div>
           <div class="timeline-item">
             <div class="timeline-dot"></div>
             <div class="timeline-content">
@@ -85,6 +89,8 @@
         </div>
       </div>
     </section>
+
+    <div class="section-divider" aria-hidden="true"><span class="section-divider-line"></span></div>
 
     <section class="content-section" id="dress-code">
       <div class="container">
@@ -131,6 +137,8 @@
       </div>
     </section>
 
+    <div class="section-divider" aria-hidden="true"><span class="section-divider-line"></span></div>
+
     <!-- Gallery Section -->
     <section class="content-section" id="gallery">
       <div class="container">
@@ -138,21 +146,27 @@
         <div class="gallery-grid">
           <div class="gallery-item">
             <img src="img/assets/gallery/1.jpg" alt="Свадебная фотография 1" />
+            <div class="gallery-item-overlay" aria-hidden="true"></div>
           </div>
           <div class="gallery-item">
             <img src="img/assets/gallery/2.jpg" alt="Свадебная фотография 2" />
+            <div class="gallery-item-overlay" aria-hidden="true"></div>
           </div>
           <div class="gallery-item">
             <img src="img/assets/gallery/3.jpg" alt="Свадебная фотография 3" />
+            <div class="gallery-item-overlay" aria-hidden="true"></div>
           </div>
           <div class="gallery-item">
             <img src="img/assets/gallery/4.jpg" alt="Свадебная фотография 4" />
+            <div class="gallery-item-overlay" aria-hidden="true"></div>
           </div>
           <div class="gallery-item">
             <img src="img/assets/gallery/5.jpg" alt="Свадебная фотография 5" />
+            <div class="gallery-item-overlay" aria-hidden="true"></div>
           </div>
           <div class="gallery-item">
             <img src="img/assets/gallery/6.jpg" alt="Свадебная фотография 6" />
+            <div class="gallery-item-overlay" aria-hidden="true"></div>
           </div>
         </div>
       </div>
@@ -170,19 +184,31 @@
         <h2 class="handwritten">Сохраните дату</h2>
         <div class="countdown">
           <div class="countdown-item">
-            <span class="number" id="days">00</span>
+            <div class="countdown-number">
+              <span class="countdown-digit" id="days-tens"><span class="countdown-digit-inner">0</span></span>
+              <span class="countdown-digit" id="days-ones"><span class="countdown-digit-inner">0</span></span>
+            </div>
             <span class="label">Дней</span>
           </div>
           <div class="countdown-item">
-            <span class="number" id="hours">00</span>
+            <div class="countdown-number">
+              <span class="countdown-digit" id="hours-tens"><span class="countdown-digit-inner">0</span></span>
+              <span class="countdown-digit" id="hours-ones"><span class="countdown-digit-inner">0</span></span>
+            </div>
             <span class="label">Часов</span>
           </div>
           <div class="countdown-item">
-            <span class="number" id="minutes">00</span>
+            <div class="countdown-number">
+              <span class="countdown-digit" id="minutes-tens"><span class="countdown-digit-inner">0</span></span>
+              <span class="countdown-digit" id="minutes-ones"><span class="countdown-digit-inner">0</span></span>
+            </div>
             <span class="label">Минут</span>
           </div>
           <div class="countdown-item">
-            <span class="number" id="seconds">00</span>
+            <div class="countdown-number">
+              <span class="countdown-digit" id="seconds-tens"><span class="countdown-digit-inner">0</span></span>
+              <span class="countdown-digit" id="seconds-ones"><span class="countdown-digit-inner">0</span></span>
+            </div>
             <span class="label">Секунд</span>
           </div>
         </div>

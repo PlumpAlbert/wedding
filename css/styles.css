@@ -31,6 +31,10 @@
 }
 
 /* Base Typography */
+html {
+  scroll-behavior: smooth;
+}
+
 html,
 body {
   font-family: var(--base-font);
@@ -90,6 +94,31 @@ body {
   position: relative;
   overflow: hidden;
   padding: 0.5rem;
+}
+
+.hero-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--dark-green);
+  opacity: 0.15;
+}
+
+.hero-particle--petal {
+  width: 10px;
+  height: 10px;
+  border-radius: 50% 0 50% 50%;
+  background-color: var(--black-pink);
+  opacity: 0.12;
+  transform: rotate(var(--rotate, 0deg));
 }
 
 .hero-decoration {
@@ -186,8 +215,41 @@ body {
    DRESS CODE SECTION
    ======================================== */
 
+.section-divider {
+  display: flex;
+  justify-content: center;
+  padding: 0.5rem 0;
+  overflow: hidden;
+}
+
+.section-divider-line {
+  display: block;
+  width: 100%;
+  max-width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--dark-green), transparent);
+  opacity: 0.4;
+  transform: scaleX(0);
+  transform-origin: center;
+}
+
 #dress-code {
   background-color: var(--bg-white);
+  position: relative;
+}
+
+#dress-code::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(247, 154, 175, 0.06), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+
+#dress-code.wash-visible::before {
+  opacity: 1;
 }
 
 #dress-code .dress-code-content {
@@ -279,6 +341,33 @@ body {
   background-color: rgba(255, 255, 255, 0.3);
 }
 
+.countdown-number {
+  display: flex;
+  justify-content: center;
+  gap: 0.15rem;
+  margin-bottom: 0.25rem;
+}
+
+.countdown-digit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.2em;
+  height: 1.4em;
+  perspective: 120px;
+  overflow: hidden;
+}
+
+.countdown-digit-inner {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--black-pink);
+  display: block;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transform-origin: center center;
+}
+
 .countdown-item .number {
   font-size: 2rem;
   font-weight: 700;
@@ -321,7 +410,25 @@ body {
   bottom: 0;
   width: 2px;
   background-color: var(--dark-green);
+  opacity: 0.15;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 20px;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background-color: var(--dark-green);
   opacity: 0.3;
+  transform-origin: top;
+  transform: scaleY(0);
+}
+
+@media (max-width: 768px) {
+  .timeline-line {
+    left: 15px;
+  }
 }
 
 .timeline-item {
@@ -456,6 +563,19 @@ body {
   transform: translateY(-1px);
 }
 
+.rsvp-btn .rsvp-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(0);
+  pointer-events: none;
+}
+
+.rsvp-btn {
+  position: relative;
+  overflow: hidden;
+}
+
 /* ========================================
    FOOTER
    ======================================== */
@@ -512,6 +632,7 @@ footer .copyright {
   box-shadow: var(--shadow-light);
   transition: var(--transition-standard);
   height: 250px;
+  position: relative;
 }
 
 .gallery-item img {
@@ -521,13 +642,29 @@ footer .copyright {
   transition: transform 0.5s ease;
 }
 
+.gallery-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(105, 124, 96, 0.25);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
 .gallery-item:hover {
-  transform: translateY(-10px);
+  transform: translateY(-12px);
   box-shadow: var(--shadow-hover);
 }
 
 .gallery-item:hover img {
-  transform: scale(1.1);
+  transform: scale(1.07);
+}
+
+.gallery-item:hover .gallery-item-overlay {
+  opacity: 1;
 }
 
 /* ========================================
@@ -542,4 +679,16 @@ footer .copyright {
 /* Optional: improve performance */
 .scroll-trigger {
   will-change: transform, opacity;
+}
+
+/* Reduced motion: disable decorative motion */
+.reduce-motion .hero-particles,
+.reduce-motion .hero-particle {
+  display: none !important;
+}
+
+.reduce-motion * {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
 }
