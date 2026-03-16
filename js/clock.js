@@ -39,9 +39,9 @@
   }
 
   function pulseCountdown() {
-    const block = document.querySelector('#countdown .countdown');
-    if (block && typeof gsap !== 'undefined') {
-      gsap.to(block, { scale: 1.02, duration: 0.12, yoyo: true, repeat: 1 });
+    const heart = document.querySelector('.countdown-heart');
+    if (heart && typeof gsap !== 'undefined') {
+      gsap.to(heart, { scale: 1.04, duration: 0.12, yoyo: true, repeat: 1 });
     }
   }
 
@@ -89,7 +89,10 @@
     if (distance < 0) {
       clearInterval(countdownInterval);
       document.querySelector("#countdown .content h2").textContent = "Мы поженились!";
-      document.querySelector(".countdown").style.display = "none";
+      const heart = document.querySelector(".countdown-heart");
+      const countdown = document.querySelector(".countdown");
+      if (heart) heart.style.display = "none";
+      if (countdown) countdown.style.display = "none";
       fireConfetti();
       return;
     }

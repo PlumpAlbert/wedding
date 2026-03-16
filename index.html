@@ -6,7 +6,7 @@
     <title>Свадебное приглашение</title>
     <link rel="stylesheet" href="css/styles.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Jost&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Jost:wght@300;400;700&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -182,7 +182,12 @@
     <footer class="parallax-section" id="countdown">
       <div class="content">
         <h2 class="handwritten">Сохраните дату</h2>
-        <div class="countdown">
+        <div class="countdown-heart">
+          <svg class="countdown-heart-shape" viewBox="0 0 100 100" aria-hidden="true">
+            <path class="countdown-heart-path" d="M50 88 C50 88 8 52 8 28 C8 12 22 4 34 4 C42 4 50 12 50 12 C50 12 58 4 66 4 C78 4 92 12 92 28 C92 52 50 88 50 88 Z" />
+          </svg>
+          <div class="countdown-heart-content">
+            <div class="countdown">
           <div class="countdown-item">
             <div class="countdown-number">
               <span class="countdown-digit" id="days-tens"><span class="countdown-digit-inner">0</span></span>
@@ -210,6 +215,8 @@
               <span class="countdown-digit" id="seconds-ones"><span class="countdown-digit-inner">0</span></span>
             </div>
             <span class="label">Секунд</span>
+          </div>
+            </div>
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@
 
 /* Color Variables */
 :root {
+  --dark-pink: #F36787;
   --black-pink: #f79aaf;
   --light-green: #99a982;
   --dark-green: #697c60;
@@ -227,7 +228,12 @@ body {
   width: 100%;
   max-width: 120px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--dark-green), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--dark-green),
+    transparent
+  );
   opacity: 0.4;
   transform: scaleX(0);
   transform-origin: center;
@@ -239,10 +245,14 @@ body {
 }
 
 #dress-code::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 50% 50%, rgba(247, 154, 175, 0.06), transparent 70%);
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(247, 154, 175, 0.06),
+    transparent 70%
+  );
   pointer-events: none;
   opacity: 0;
   transition: opacity 1.2s ease;
@@ -297,7 +307,6 @@ body {
    ======================================== */
 
 #countdown {
-  background-color: var(--dark-green);
   min-height: 100vh;
   height: auto;
   display: flex;
@@ -306,46 +315,81 @@ body {
   justify-content: center;
 }
 
+.countdown-heart {
+  position: relative;
+  width: min(420px, 92vw);
+  aspect-ratio: 0.92;
+  margin-top: 1.5rem;
+  transform-origin: center center;
+}
+
+.countdown-heart-shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.25));
+}
+
+.countdown-heart-path {
+  fill: var(--dark-pink);
+  stroke: var(--dark-pink);
+  stroke-width: 2.2;
+  stroke-linejoin: round;
+  transition:
+    fill 0.3s ease,
+    stroke 0.3s ease;
+}
+
+.countdown-heart-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.75rem 1rem 3.5rem;
+  box-sizing: border-box;
+}
+
 #countdown .countdown {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-top: 1rem;
+  margin-top: 0;
 }
 
-.countdown-item {
-  margin: 0.3rem 0;
+#countdown .countdown .countdown-item {
+  margin: 0.4rem 0;
   text-align: center;
   position: relative;
 }
 
-.countdown-item::before {
+#countdown .countdown-item::before {
   content: "";
   position: absolute;
-  top: -10px;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
-  height: 10px;
-  background-color: rgba(255, 255, 255, 0.3);
+  height: 0.4rem;
+  background-color: var(--white);
+  opacity: 0.24;
 }
 
-.countdown-item::after {
-  content: "";
-  position: absolute;
-  bottom: -10px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 10px;
-  background-color: rgba(255, 255, 255, 0.3);
+#countdown .countdown-item::before {
+  top: -0.6rem;
+}
+
+#countdown .countdown-item:first-child::before ,
+#countdown .countdown-item:last-child::after {
+  display: none !important;
 }
 
 .countdown-number {
   display: flex;
   justify-content: center;
   gap: 0.15rem;
-  margin-bottom: 0.25rem;
 }
 
 .countdown-digit {
@@ -358,10 +402,11 @@ body {
   overflow: hidden;
 }
 
-.countdown-digit-inner {
-  font-size: 2rem;
+#countdown .countdown-digit-inner {
+  font-size: clamp(1.35rem, 4.5vw, 2rem);
+  font-family: var(--base-font);
   font-weight: 700;
-  color: var(--black-pink);
+  color: var(--white);
   display: block;
   transform-style: preserve-3d;
   backface-visibility: hidden;
@@ -372,14 +417,15 @@ body {
   font-size: 2rem;
   font-weight: 700;
   display: block;
-  color: var(--black-pink);
+  color: var(--white);
 }
 
-.countdown-item .label {
-  font-size: 1rem;
+#countdown .countdown-item .label {
+  font-size: clamp(0.75rem, 2.2vw, 1rem);
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: white;
+  color: var(--white);
+  opacity: 0.84;
 }
 
 /* ========================================
@@ -403,7 +449,7 @@ body {
 }
 
 .timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 20px;
   top: 0;
@@ -581,7 +627,7 @@ body {
    ======================================== */
 
 footer {
-  background-color: var(--dark-green);
+  background-color: var(--light-green);
   color: white;
   text-align: center;
   padding: 1.5rem 1rem;
