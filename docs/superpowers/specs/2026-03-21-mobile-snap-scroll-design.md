@@ -72,6 +72,14 @@
     scroll-behavior: auto;
   }
 
+  /* height: 100dvh на html/body зажимает страницу до одного экрана,
+     из-за чего position: sticky не работает — страница не скроллится.
+     Переопределяем в auto, чтобы body мог расти под все секции. */
+  html,
+  body {
+    height: auto;
+  }
+
   /* Карточечный вид: каждая секция прилипает к верху и выглядит как карточка.
      overflow: visible переопределяет .parallax-section { overflow: hidden },
      которое иначе предотвращало бы работу position: sticky. */
@@ -93,6 +101,12 @@
   #hero {
     border-radius: 0;
     box-shadow: none;
+  }
+
+  /* .parallax-section:hover { transform: scale(1.01) } создаёт новый
+     stacking context и ломает position: sticky на touch-устройствах. */
+  .parallax-section:hover {
+    transform: none;
   }
 }
 ```
@@ -153,14 +167,22 @@ snapMM.add("(max-width: 768px)", () => {
       .sort((a, b) => a - b);
   }
 
+  // trigger + start + end обязательны для страничного снэпа:
+  // без них ScrollTrigger не имеет диапазона прокрутки для наблюдения
+  // и snapTo никогда не вызывается. end задаётся функцией, чтобы
+  // пересчитываться после ScrollTrigger.refresh().
   ScrollTrigger.create({
+    trigger: document.documentElement,
+    start: 0,
+    end: () => ScrollTrigger.maxScroll(window),
     snap: {
       snapTo(value, self) {
         const now = Date.now();
         // Троттл: если с последнего снэпа прошло < THROTTLE_MS,
         // возвращаем ту же позицию (в нормализованном виде 0–1).
         if (now - lastSnapTime < THROTTLE_MS) {
-          return lastSnapPosition / ScrollTrigger.maxScroll(window);
+          const max = ScrollTrigger.maxScroll(window) || 1;
+          return lastSnapPosition / max;
         }
 
         const maxScroll = ScrollTrigger.maxScroll(window);
