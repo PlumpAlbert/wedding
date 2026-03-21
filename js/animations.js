@@ -303,20 +303,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Section divider flourish (draw-in on scroll)
-  document.querySelectorAll(".section-divider-line").forEach((line) => {
-    gsap.to(line, {
-      scaleX: 1,
-      duration: 0.8,
-      ease: "power2.out",
-      scrollTrigger: {
-        trigger: line,
-        start: "top 88%",
-        toggleActions: "play none none reverse",
-      },
-    });
-  });
-
   // Dress-code background wash when section enters view
   const dressCodeSection = document.getElementById("dress-code");
   if (dressCodeSection) {
@@ -504,6 +490,117 @@ document.addEventListener("DOMContentLoaded", function () {
       },
     );
   }
+
+  // ========== MOBILE SNAP SCROLL ==========
+  // gsap.matchMedia scopes the ScrollTrigger to mobile only.
+  // ScrollTrigger.matchMedia is deprecated since GSAP 3.11 — use gsap.matchMedia().
+  const snapMM = gsap.matchMedia();
+  snapMM.add("(max-width: 768px)", () => {
+    const SECTIONS = [
+      "#hero",
+      "#welcome-message",
+      "#details",
+      "#dress-code",
+      "#gallery",
+      "#rsvp",
+      "#countdown",
+    ]
+      .map((sel) => document.querySelector(sel))
+      .filter(Boolean);
+
+    const THRESHOLD = 0.25; // fraction of viewport height required to advance
+    const THROTTLE_MS = 600; // minimum ms between snaps (prevents rapid skipping)
+    let lastSnapTime = 0;
+    let lastSnapPosition = 0; // stored in px, not as normalised 0-1
+
+    // Called on every snapTo invocation. offsetTop values are stable after
+    // ScrollTrigger.refresh() which runs automatically on init.
+    // For sections taller than 1.2 × viewport a second snap point is added
+    // at the section's bottom, allowing the user to read all content before
+    // advancing to the next section.
+    function buildSnapPoints() {
+      // || 1 guard: maxScroll is used only as a filter bound (not a divisor),
+      // so || 1 is harmless and prevents a degenerate 0-filtered points array
+      // during any early-init edge case where layout hasn't settled.
+      const maxScroll = ScrollTrigger.maxScroll(window) || 1;
+      const vh = window.innerHeight;
+      const points = [];
+
+      SECTIONS.forEach((section) => {
+        const top = section.offsetTop;
+        points.push(top);
+
+        if (section.offsetHeight > vh * 1.2) {
+          points.push(top + section.offsetHeight - vh);
+        }
+      });
+
+      return points
+        .filter((p) => p >= 0 && p <= maxScroll)
+        .sort((a, b) => a - b);
+    }
+
+    // trigger + start + end give ScrollTrigger a page-wide scroll range to observe.
+    // Without them the snap callback never fires.
+    // end is a function so it re-evaluates after ScrollTrigger.refresh().
+    ScrollTrigger.create({
+      trigger: document.documentElement,
+      start: 0,
+      end: () => ScrollTrigger.maxScroll(window),
+      snap: {
+        snapTo(value, self) {
+          const now = Date.now();
+          if (now - lastSnapTime < THROTTLE_MS) {
+            // Throttle: return the last snapped position unchanged.
+            const max = ScrollTrigger.maxScroll(window) || 1;
+            return lastSnapPosition / max;
+          }
+
+          const maxScroll = ScrollTrigger.maxScroll(window) || 1;
+          const scrollY = value * maxScroll;
+          const vh = window.innerHeight;
+          const threshold = vh * THRESHOLD;
+          const points = buildSnapPoints();
+          const direction = self?.direction ?? 1;
+
+          // nearest point AT OR BELOW current scroll position
+          const prevPoint = [...points].reverse().find((p) => p <= scrollY + 1);
+          // nearest point STRICTLY ABOVE current scroll position
+          const nextPoint = points.find((p) => p > scrollY + 1);
+
+          let target;
+          if (direction > 0 && nextPoint !== undefined) {
+            // Scrolling down: advance only if scrolled > threshold past prevPoint
+            target =
+              scrollY - (prevPoint ?? 0) >= threshold
+                ? nextPoint
+                : (prevPoint ?? 0);
+          } else if (direction < 0 && prevPoint !== undefined) {
+            // Scrolling up: retreat only if scrolled > threshold above nextPoint
+            target =
+              (nextPoint ?? maxScroll) - scrollY >= threshold
+                ? prevPoint
+                : (nextPoint ?? maxScroll);
+          } else {
+            // Default: snap to nearest point
+            target = points.reduce((a, b) =>
+              Math.abs(b - scrollY) < Math.abs(a - scrollY) ? b : a
+            );
+          }
+
+          lastSnapTime = now;
+          lastSnapPosition = target; // store in px for throttle return
+          return target / maxScroll;
+        },
+        duration: { min: 0.4, max: 0.7 },
+        ease: "power2.inOut",
+        delay: 0.05,
+      },
+    });
+
+    // Cleanup called by gsap.matchMedia when viewport exceeds 768px
+    return () => {};
+  });
 
   // Debug log
   console.log("Enhanced scroll animations initialized.");
