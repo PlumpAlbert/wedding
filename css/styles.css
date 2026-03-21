@@ -423,7 +423,7 @@ body {
 }
 
 /* ========================================
-   DETAILS SECTION (TIMELINE)
+   DETAILS SECTION (ZIGZAG TIMELINE)
    ======================================== */
 
 #details {
@@ -437,151 +437,157 @@ body {
 }
 
 #details .container {
-  max-width: 640px;
+  max-width: 860px;
 }
 
-.timeline {
+.zigzag {
   position: relative;
-  margin: 2rem auto;
-  padding-left: 2.5rem;
+  margin: 2rem auto 0;
 }
 
-.timeline::before {
-  content: "";
+/* Центральная линия.
+   Центрируется через left + margin-left, а не transform,
+   чтобы GSAP мог владеть transform для scaleY-анимации. */
+.zigzag-line {
   position: absolute;
-  left: 11px;
+  left: 50%;
+  margin-left: -1px;
   top: 0;
   bottom: 0;
   width: 1px;
-  background: linear-gradient(180deg, transparent 0%, var(--dark-green) 8%, var(--dark-green) 92%, transparent 100%);
-  opacity: 0.25;
-}
-
-.timeline-line {
-  position: absolute;
-  left: 11px;
-  top: 0;
-  height: 100%;
-  width: 1px;
-  background-color: var(--dark-green);
-  opacity: 0.35;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    var(--dark-green) 8%,
+    var(--dark-green) 92%,
+    transparent 100%
+  );
+  opacity: 0.3;
   transform-origin: top;
   transform: scaleY(0);
 }
 
-@media (max-width: 768px) {
-  .timeline-line {
-    left: 9px;
-  }
-}
-
-.timeline-item {
+.zigzag-item {
   position: relative;
-  margin-bottom: 2.25rem;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+.zigzag-item:last-child { margin-bottom: 0; }
+
+.zigzag-item--left  { flex-direction: row; }
+.zigzag-item--right { flex-direction: row-reverse; }
+
+.zigzag-content {
+  width: calc(50% - 2rem);
+  padding: 1.1rem 1.2rem;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(249,245,240,0.98));
+  border: 1px solid rgba(105,124,96,0.12);
+  box-shadow: 0 4px 20px rgba(105,124,96,0.08), 0 1px 3px rgba(0,0,0,0.04);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.zigzag-content:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(105,124,96,0.12);
 }
 
-.timeline-item:last-child {
-  margin-bottom: 0;
-}
+.zigzag-item--left  .zigzag-content { margin-right: 4rem; text-align: right; }
+.zigzag-item--right .zigzag-content { margin-left:  4rem; text-align: left; }
 
-.timeline-dot {
-  position: absolute;
-  left: -2.5rem;
-  top: 1.5rem;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: var(--bg-white);
-  border: 2px solid var(--dark-green);
-  box-shadow: 0 0 0 4px rgba(105, 124, 96, 0.12);
-  z-index: 2;
+.zz-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin-bottom: 0.4rem;
+  flex-wrap: wrap;
+}
+.zigzag-item--left  .zz-header { justify-content: flex-end; }
+.zigzag-item--right .zz-header { justify-content: flex-start; }
+
+.zz-time {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--bg-white);
+  background: var(--dark-green);
+  padding: 0.3rem 0.65rem;
+  border-radius: 100px;
   flex-shrink: 0;
 }
 
-.timeline-content {
-  margin-left: 1.5rem;
-  padding: 1.35rem 1.25rem;
-  background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(249, 245, 240, 0.98) 100%);
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(105, 124, 96, 0.08), 0 1px 3px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(105, 124, 96, 0.12);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  width: 100%;
+.zz-title {
+  font-family: var(--header-font);
+  font-size: 1.5rem;
+  color: var(--dark-green);
+  line-height: 1.2;
 }
 
-.timeline-content:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(105, 124, 96, 0.12), 0 2px 8px rgba(0, 0, 0, 0.06);
+.zz-desc {
+  font-size: 0.9rem;
+  color: var(--black);
+  opacity: 0.75;
+  line-height: 1.5;
 }
 
-.timeline-header {
+.zigzag-dot-wrap {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.zigzag-dot {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--bg-white);
+  border: 2px solid var(--dark-green);
+  box-shadow: 0 0 0 4px rgba(105,124,96,0.1);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.6rem;
-  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 1.1rem;
 }
 
-.timeline-time {
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  color: var(--bg-white);
-  background: var(--dark-green);
-  padding: 0.35rem 0.7rem;
-  border-radius: 100px;
-  display: inline-block;
-}
-
-.timeline-separator {
-  display: none;
-}
-
-.timeline-title {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--dark-green);
-  font-family: var(--header-font);
-  line-height: 1.3;
-}
-
-.timeline-description {
-  font-size: 0.95rem;
-  color: var(--black);
-  line-height: 1.55;
-  opacity: 0.88;
-}
-
-/* Responsive adjustments */
+/* Мобайл: схлопывается в однострочный левый layout */
 @media (max-width: 768px) {
-  .timeline {
-    padding-left: 2rem;
+  #details .container { max-width: 100%; }
+
+  /* left = половина ширины dot (42px / 2 = 21px) от левого края .zigzag */
+  .zigzag-line {
+    left: 21px;
+    margin-left: 0;
   }
-  .timeline::before,
-  .timeline-line {
-    left: 9px;
+
+  .zigzag-item,
+  .zigzag-item--left,
+  .zigzag-item--right { flex-direction: row; }
+
+  .zigzag-dot-wrap {
+    position: static;
+    transform: none;
+    flex-shrink: 0;
   }
-  .timeline-dot {
-    left: -2rem;
-    top: 1.25rem;
-    width: 12px;
-    height: 12px;
+
+  /* DOM-порядок --left: [content, dot-wrap].
+     После перехода в static-flow dot оказывается справа.
+     order: -1 ставит dot первым в flex. */
+  .zigzag-item--left .zigzag-dot-wrap { order: -1; }
+
+  .zigzag-content,
+  .zigzag-item--left  .zigzag-content,
+  .zigzag-item--right .zigzag-content {
+    width: auto;
+    flex: 1;
+    margin-left: 1rem;
+    margin-right: 0;
+    text-align: left;
   }
-  .timeline-content {
-    margin-left: 1.25rem;
-    padding: 1.15rem 1rem;
-  }
-  .timeline-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0.35rem;
-  }
-  .timeline-time {
-    font-size: 0.8rem;
-    padding: 0.3rem 0.6rem;
-  }
+
+  .zigzag-item--left  .zz-header,
+  .zigzag-item--right .zz-header { justify-content: flex-start; }
 }
 
 /* ========================================
