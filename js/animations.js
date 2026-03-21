@@ -240,61 +240,65 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   });
 
-  // ========== DETAILS (TIMELINE) ==========
-  const detailsHeading = document.querySelector("#details h2");
-  if (detailsHeading) fadeUp(detailsHeading);
+  // ========== DETAILS (ZIGZAG) ==========
+  const zigzagHeading = document.querySelector('#details h2');
+  if (zigzagHeading) fadeUp(zigzagHeading);
 
-  const timeline = document.querySelector(".timeline");
-  const timelineLine = document.querySelector(".timeline-line");
-  const timelineItems = document.querySelectorAll(".timeline-item");
-  if (timeline && timelineLine) {
-    gsap.to(timelineLine, {
+  const zigzagLine = document.querySelector('.zigzag-line');
+  if (zigzagLine) {
+    // Line is centered via left + margin-left (not transform),
+    // so GSAP can safely own transform for scaleY animation.
+    gsap.to(zigzagLine, {
       scaleY: 1,
-      duration: 1.2,
-      ease: "power2.inOut",
+      duration: 1.4,
+      ease: 'power2.inOut',
       scrollTrigger: {
-        trigger: timeline,
-        start: "top 80%",
-        toggleActions: "play none none reverse",
+        trigger: '.zigzag',
+        start: 'top 80%',
+        toggleActions: 'play none none reverse',
       },
     });
   }
-  timelineItems.forEach((item, i) => {
-    const dot = item.querySelector(".timeline-dot");
-    const content = item.querySelector(".timeline-content");
+
+  document.querySelectorAll('.zigzag-item').forEach((item) => {
+    const dot     = item.querySelector('.zigzag-dot');
+    const content = item.querySelector('.zigzag-content');
+    const isLeft  = item.classList.contains('zigzag-item--left');
+
     if (dot) {
-      gsap.fromTo(
-        dot,
+      gsap.fromTo(dot,
         { scale: 0, opacity: 0 },
         {
           scale: 1,
           opacity: 1,
           duration: 0.5,
-          ease: "back.out(1.5)",
+          ease: 'back.out(1.5)',
           scrollTrigger: {
             trigger: item,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
           },
-        },
+        }
       );
     }
+
     if (content) {
-      gsap.fromTo(
-        content,
-        { x: 30, opacity: 0 },
+      // --left card slides in from the right (x: 30 → 0)
+      // --right card slides in from the left (x: -30 → 0)
+      gsap.fromTo(content,
+        { x: isLeft ? 30 : -30, opacity: 0 },
         {
           x: 0,
           opacity: 1,
           duration: 0.7,
           delay: 0.15,
-          ease: "power3.out",
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: item,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+            start: 'top 85%',
+            toggleActions: 'play none none reverse',
           },
-        },
+        }
       );
     }
   });
