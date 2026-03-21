@@ -210,28 +210,6 @@ body {
    DRESS CODE SECTION
    ======================================== */
 
-.section-divider {
-  display: flex;
-  justify-content: center;
-  padding: 0.5rem 0;
-  overflow: hidden;
-}
-
-.section-divider-line {
-  display: block;
-  width: 100%;
-  max-width: 120px;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--dark-green),
-    transparent
-  );
-  opacity: 0.4;
-  transform: scaleX(0);
-  transform-origin: center;
-}
 
 #dress-code {
   background-color: var(--bg-white);
@@ -757,4 +735,49 @@ footer .copyright {
   animation-duration: 0.01ms !important;
   animation-iteration-count: 1 !important;
   transition-duration: 0.01ms !important;
+}
+
+/* ========================================
+   MOBILE SNAP SCROLL (≤ 768px)
+   ======================================== */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* height: 100dvh on html/body clamps page to one screen,
+     which prevents sticky stacking from working. */
+  html,
+  body {
+    height: auto;
+  }
+
+  /* Card appearance: each section sticks to top and looks like a card.
+     overflow: visible overrides .parallax-section { overflow: hidden },
+     which would otherwise prevent position: sticky from working. */
+  #hero,
+  #welcome-message,
+  #details,
+  #dress-code,
+  #gallery,
+  #rsvp,
+  #countdown {
+    position: sticky;
+    top: 0;
+    overflow: visible;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  /* First section — no rounded corners or shadow (nothing below it) */
+  #hero {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  /* .parallax-section:hover { transform: scale(1.01) } creates a new
+     stacking context on touch tap and breaks position: sticky. */
+  .parallax-section:hover {
+    transform: none;
+  }
 }
