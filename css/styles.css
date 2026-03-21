@@ -41,7 +41,9 @@ body {
   font-family: var(--base-font);
   line-height: 1.6;
   color: var(--black);
-  overflow-x: hidden;
+  /* overflow-x: clip (not hidden) — hidden creates a scroll container
+     which breaks position: sticky on child sections. */
+  overflow-x: clip;
   background-color: var(--bg-green);
   font-size: 16px;
   /* No height: 100dvh here — it clamps the body to one screen and
