@@ -527,7 +527,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const points = [];
 
       SECTIONS.forEach((section) => {
-        const top = section.offsetTop;
+        const top = Math.round(section.getBoundingClientRect().top + window.scrollY);
         points.push(top);
 
         if (section.offsetHeight > vh * 1.2) {
@@ -551,7 +551,10 @@ document.addEventListener("DOMContentLoaded", function () {
         snapTo(value, self) {
           const now = Date.now();
           if (now - lastSnapTime < THROTTLE_MS) {
-            // Throttle: return the last snapped position unchanged.
+            // Throttle: return last snapped position unchanged.
+            // Fall back to the raw `value` if no snap has occurred yet
+            // (lastSnapPosition is 0 on first-ever scroll event).
+            if (lastSnapPosition === 0) return value;
             const max = ScrollTrigger.maxScroll(window) || 1;
             return lastSnapPosition / max;
           }
@@ -576,11 +579,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 ? nextPoint
                 : (prevPoint ?? 0);
           } else if (direction < 0 && prevPoint !== undefined) {
-            // Scrolling up: retreat only if scrolled > threshold above nextPoint
+            // Scrolling up: retreat only if scrolled > threshold above nextPoint.
+            // When nextPoint is undefined (already past last snap point),
+            // snap to prevPoint unconditionally — there is no forward to return to.
             target =
-              (nextPoint ?? maxScroll) - scrollY >= threshold
-                ? prevPoint
-                : (nextPoint ?? maxScroll);
+              nextPoint !== undefined && nextPoint - scrollY >= threshold
+                ? nextPoint
+                : prevPoint;
           } else {
             // Default: snap to nearest point
             target = points.reduce((a, b) =>
