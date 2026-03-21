@@ -31,9 +31,9 @@
   --base-font: "Jost", sans-serif;
 }
 
-/* Base Typography */
 html {
-  scroll-behavior: smooth;
+  /* auto on mobile — GSAP controls scroll; smooth restored on desktop */
+  scroll-behavior: auto;
 }
 
 html,
@@ -44,7 +44,8 @@ body {
   overflow-x: hidden;
   background-color: var(--bg-green);
   font-size: 16px;
-  height: 100dvh;
+  /* No height: 100dvh here — it clamps the body to one screen and
+     breaks position: sticky stacking on mobile. */
 }
 
 /* Font Styles */
@@ -57,33 +58,53 @@ body {
 }
 
 /* ========================================
+   MOBILE CARD STACK
+   Base styles (mobile): sections are sticky cards that stack on scroll.
+   ======================================== */
+
+#hero,
+#welcome-message,
+#details,
+#dress-code,
+#gallery,
+#rsvp,
+#countdown {
+  position: sticky;
+  top: 0;
+  overflow: visible;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* First section sits at the bottom of the stack — no card chrome needed */
+#hero {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ========================================
    PARALLAX SECTIONS
    ======================================== */
 
 .parallax-section {
-  min-height: 100vh;
+  min-height: 100dvh;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   position: relative;
-  overflow: hidden;
-  background-attachment: fixed;
+  /* background-attachment: fixed doesn't work on iOS/Android;
+     enabled on desktop only via the min-width block below. */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   color: white;
-  transition: transform 0.3s ease;
   z-index: 1;
 }
 
 .parallax-section--shadow {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-}
-
-.parallax-section:hover {
-  transform: scale(1.01);
 }
 
 /* ========================================
@@ -92,8 +113,6 @@ body {
 
 #hero {
   background-color: var(--bg-green);
-  position: relative;
-  overflow: hidden;
   padding: 0.5rem;
 }
 
@@ -134,7 +153,7 @@ body {
 
 #hero h1 {
   color: var(--dark-green);
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 10vw, 4rem);
   margin-bottom: 1rem;
   line-height: 1.1;
   text-align: center;
@@ -143,7 +162,7 @@ body {
 
 #hero .date,
 #hero .location {
-  font-size: 1.5rem;
+  font-size: clamp(1.1rem, 4vw, 1.5rem);
   color: var(--dark-green);
 }
 
@@ -210,7 +229,6 @@ body {
    DRESS CODE SECTION
    ======================================== */
 
-
 #dress-code {
   background-color: var(--bg-white);
   position: relative;
@@ -267,11 +285,6 @@ body {
   box-shadow: var(--shadow-light);
   transition: var(--transition-standard);
   cursor: pointer;
-}
-
-.color-swatch:hover {
-  transform: scale(1.2);
-  box-shadow: var(--shadow-medium);
 }
 
 /* ========================================
@@ -353,7 +366,7 @@ body {
   top: -0.6rem;
 }
 
-#countdown .countdown-item:first-child::before ,
+#countdown .countdown-item:first-child::before,
 #countdown .countdown-item:last-child::after {
   display: none !important;
 }
@@ -402,6 +415,7 @@ body {
 
 /* ========================================
    DETAILS SECTION (ZIGZAG TIMELINE)
+   Mobile base: single-column left-aligned layout
    ======================================== */
 
 #details {
@@ -414,10 +428,6 @@ body {
   padding: 3rem 1rem;
 }
 
-#details .container {
-  max-width: 860px;
-}
-
 .zigzag {
   position: relative;
   margin: 2rem auto 0;
@@ -428,8 +438,9 @@ body {
    чтобы GSAP мог владеть transform для scaleY-анимации. */
 .zigzag-line {
   position: absolute;
-  left: 50%;
-  margin-left: -1px;
+  /* Mobile: line aligned to dot center (half of 42px dot = 21px) */
+  left: 21px;
+  margin-left: 0;
   top: 0;
   bottom: 0;
   width: 1px;
@@ -451,14 +462,32 @@ body {
   align-items: center;
   margin-bottom: 2rem;
   width: 100%;
+  /* Mobile: all items left-aligned regardless of --left/--right class */
+  flex-direction: row;
 }
 .zigzag-item:last-child { margin-bottom: 0; }
 
-.zigzag-item--left  { flex-direction: row; }
-.zigzag-item--right { flex-direction: row-reverse; }
+/* Mobile: dot is in static flow, not absolute */
+.zigzag-dot-wrap {
+  position: static;
+  transform: none;
+  flex-shrink: 0;
+  z-index: 2;
+}
 
-.zigzag-content {
-  width: calc(50% - 2rem);
+/* DOM order for --left items is [content, dot-wrap].
+   order: -1 moves dot before content in flex flow. */
+.zigzag-item--left .zigzag-dot-wrap { order: -1; }
+
+/* Mobile: all cards fill remaining width to the right of the dot */
+.zigzag-content,
+.zigzag-item--left .zigzag-content,
+.zigzag-item--right .zigzag-content {
+  width: auto;
+  flex: 1;
+  margin-left: 1rem;
+  margin-right: 0;
+  text-align: left;
   padding: 1.1rem 1.2rem;
   border-radius: 16px;
   background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(249,245,240,0.98));
@@ -466,13 +495,6 @@ body {
   box-shadow: 0 4px 20px rgba(105,124,96,0.08), 0 1px 3px rgba(0,0,0,0.04);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.zigzag-content:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(105,124,96,0.12);
-}
-
-.zigzag-item--left  .zigzag-content { margin-right: 4rem; text-align: right; }
-.zigzag-item--right .zigzag-content { margin-left:  4rem; text-align: left; }
 
 .zz-header {
   display: flex;
@@ -480,9 +502,9 @@ body {
   gap: 0.6rem;
   margin-bottom: 0.4rem;
   flex-wrap: wrap;
+  /* Mobile: all headers left-aligned */
+  justify-content: flex-start;
 }
-.zigzag-item--left  .zz-header { justify-content: flex-end; }
-.zigzag-item--right .zz-header { justify-content: flex-start; }
 
 .zz-time {
   font-size: 0.78rem;
@@ -509,13 +531,6 @@ body {
   line-height: 1.5;
 }
 
-.zigzag-dot-wrap {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2;
-}
-
 .zigzag-dot {
   width: 42px;
   height: 42px;
@@ -527,45 +542,6 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 1.1rem;
-}
-
-/* Мобайл: схлопывается в однострочный левый layout */
-@media (max-width: 768px) {
-  #details .container { max-width: 100%; }
-
-  /* left = половина ширины dot (42px / 2 = 21px) от левого края .zigzag */
-  .zigzag-line {
-    left: 21px;
-    margin-left: 0;
-  }
-
-  .zigzag-item,
-  .zigzag-item--left,
-  .zigzag-item--right { flex-direction: row; }
-
-  .zigzag-dot-wrap {
-    position: static;
-    transform: none;
-    flex-shrink: 0;
-  }
-
-  /* DOM-порядок --left: [content, dot-wrap].
-     После перехода в static-flow dot оказывается справа.
-     order: -1 ставит dot первым в flex. */
-  .zigzag-item--left .zigzag-dot-wrap { order: -1; }
-
-  .zigzag-content,
-  .zigzag-item--left  .zigzag-content,
-  .zigzag-item--right .zigzag-content {
-    width: auto;
-    flex: 1;
-    margin-left: 1rem;
-    margin-right: 0;
-    text-align: left;
-  }
-
-  .zigzag-item--left  .zz-header,
-  .zigzag-item--right .zz-header { justify-content: flex-start; }
 }
 
 /* ========================================
@@ -584,7 +560,7 @@ body {
 .rsvp-btn {
   background-color: var(--dark-green);
   color: white;
-  border: none;
+  border: 2px solid white;
   padding: 0.6rem 1.2rem;
   font-size: 1rem;
   font-family: var(--base-font);
@@ -594,13 +570,8 @@ body {
   margin-top: 1.5rem;
   transition: var(--transition-standard);
   box-shadow: var(--shadow-light);
-  border: 2px solid white;
-}
-
-.rsvp-btn:hover {
-  background-color: var(--dark-green);
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-medium);
+  position: relative;
+  overflow: hidden;
 }
 
 .rsvp-btn:active {
@@ -613,11 +584,6 @@ body {
   background: rgba(255, 255, 255, 0.4);
   transform: scale(0);
   pointer-events: none;
-}
-
-.rsvp-btn {
-  position: relative;
-  overflow: hidden;
 }
 
 /* ========================================
@@ -698,34 +664,19 @@ footer .copyright {
   pointer-events: none;
 }
 
-.gallery-item:hover {
-  transform: translateY(-12px);
-  box-shadow: var(--shadow-hover);
-}
-
-.gallery-item:hover img {
-  transform: scale(1.07);
-}
-
-.gallery-item:hover .gallery-item-overlay {
-  opacity: 1;
-}
-
 /* ========================================
    SCROLL ANIMATIONS (GSAP)
    ======================================== */
 
-/* Prevent flash of un-animated content */
 .gsap-animate {
   opacity: 0;
 }
 
-/* Optional: improve performance */
 .scroll-trigger {
   will-change: transform, opacity;
 }
 
-/* Reduced motion: disable decorative motion */
+/* Reduced motion */
 .reduce-motion .hero-particles,
 .reduce-motion .hero-particle--heart {
   display: none !important;
@@ -738,23 +689,27 @@ footer .copyright {
 }
 
 /* ========================================
-   MOBILE SNAP SCROLL (≤ 768px)
+   DESKTOP OVERRIDES (≥ 769px)
+   Restore parallax, hover effects, zigzag two-column layout,
+   and revert sticky card chrome.
    ======================================== */
-@media (max-width: 768px) {
+@media (min-width: 769px) {
   html {
-    scroll-behavior: auto;
+    scroll-behavior: smooth;
   }
 
-  /* height: 100dvh on html/body clamps page to one screen,
-     which prevents sticky stacking from working. */
-  html,
-  body {
-    height: auto;
+  /* Restore parallax background on desktop */
+  .parallax-section {
+    background-attachment: fixed;
+    overflow: hidden;
+    transition: transform 0.3s ease;
   }
 
-  /* Card appearance: each section sticks to top and looks like a card.
-     overflow: visible overrides .parallax-section { overflow: hidden },
-     which would otherwise prevent position: sticky from working. */
+  .parallax-section:hover {
+    transform: scale(1.01);
+  }
+
+  /* Revert sticky card chrome — desktop scrolls naturally */
   #hero,
   #welcome-message,
   #details,
@@ -762,22 +717,83 @@ footer .copyright {
   #gallery,
   #rsvp,
   #countdown {
-    position: sticky;
-    top: 0;
-    overflow: visible;
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.12);
-  }
-
-  /* First section — no rounded corners or shadow (nothing below it) */
-  #hero {
+    position: relative;
+    overflow: hidden;
     border-radius: 0;
     box-shadow: none;
   }
 
-  /* .parallax-section:hover { transform: scale(1.01) } creates a new
-     stacking context on touch tap and breaks position: sticky. */
-  .parallax-section:hover {
-    transform: none;
+  /* Restore per-section overflow settings */
+  #hero        { overflow: hidden; }
+  #dress-code  { overflow: visible; } /* keeps ::before pseudo-element visible */
+
+  /* Hover effects — only meaningful with a pointer device */
+  .color-swatch:hover {
+    transform: scale(1.2);
+    box-shadow: var(--shadow-medium);
   }
+
+  .gallery-item:hover {
+    transform: translateY(-12px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.07);
+  }
+
+  .gallery-item:hover .gallery-item-overlay {
+    opacity: 1;
+  }
+
+  .rsvp-btn:hover {
+    background-color: var(--dark-green);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  .zigzag-content:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(105,124,96,0.12);
+  }
+
+  /* ---- Zigzag: two-column desktop layout ---- */
+  #details .container {
+    max-width: 860px;
+  }
+
+  /* Line centered between columns */
+  .zigzag-line {
+    left: 50%;
+    margin-left: -1px;
+  }
+
+  /* Restore alternating flex directions */
+  .zigzag-item--left  { flex-direction: row; }
+  .zigzag-item--right { flex-direction: row-reverse; }
+
+  /* Dot: back to absolute center */
+  .zigzag-dot-wrap {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Undo mobile order override */
+  .zigzag-item--left .zigzag-dot-wrap { order: 0; }
+
+  /* Cards: half-width with side margins */
+  .zigzag-content,
+  .zigzag-item--left  .zigzag-content,
+  .zigzag-item--right .zigzag-content {
+    width: calc(50% - 2rem);
+    flex: none;
+  }
+
+  .zigzag-item--left  .zigzag-content { margin-right: 4rem; margin-left: 0;    text-align: right; }
+  .zigzag-item--right .zigzag-content { margin-left:  4rem; margin-right: 0;   text-align: left;  }
+
+  /* Headers */
+  .zigzag-item--left  .zz-header { justify-content: flex-end;   }
+  .zigzag-item--right .zz-header { justify-content: flex-start; }
 }
