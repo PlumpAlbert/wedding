@@ -185,7 +185,7 @@ snapMM.add("(max-width: 768px)", () => {
           return lastSnapPosition / max;
         }
 
-        const maxScroll = ScrollTrigger.maxScroll(window);
+        const maxScroll = ScrollTrigger.maxScroll(window) || 1;
         const scrollY = value * maxScroll;
         const vh = window.innerHeight;
         const threshold = vh * THRESHOLD;
