@@ -264,6 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const dot     = item.querySelector(".zigzag-dot");
     const content = item.querySelector(".zigzag-content");
     const isLeft  = item.classList.contains("zigzag-item--left");
+    const startCondition = "top 90%";
 
     if (dot) {
       gsap.fromTo(dot,
@@ -275,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function () {
           ease: "back.out(1.5)",
           scrollTrigger: {
             trigger: item,
-            start: "top 85%",
+            start: startCondition,
             toggleActions: "play none none reverse",
           },
         }
@@ -295,7 +296,7 @@ document.addEventListener("DOMContentLoaded", function () {
           ease: "power3.out",
           scrollTrigger: {
             trigger: item,
-            start: "top 85%",
+            start: startCondition,
             toggleActions: "play none none reverse",
           },
         }
@@ -338,33 +339,6 @@ document.addEventListener("DOMContentLoaded", function () {
         scrollTrigger: {
           trigger: swatch,
           start: "top 90%",
-          toggleActions: "play none none reverse",
-        },
-      },
-    );
-  });
-
-  // ========== GALLERY ==========
-  // Gallery items with clip-path circle reveal + zoom-in
-  const galleryItems = document.querySelectorAll(".gallery-item");
-  galleryItems.forEach((item, i) => {
-    gsap.fromTo(
-      item,
-      {
-        clipPath: "circle(0% at 50% 50%)",
-        opacity: 0,
-        scale: 0.9,
-      },
-      {
-        clipPath: "circle(150% at 50% 50%)",
-        opacity: 1,
-        scale: 1,
-        duration: 1,
-        delay: i * 0.08,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: item,
-          start: "top 85%",
           toggleActions: "play none none reverse",
         },
       },
@@ -501,7 +475,6 @@ document.addEventListener("DOMContentLoaded", function () {
       "#welcome-message",
       "#details",
       "#dress-code",
-      "#gallery",
       "#rsvp",
       "#countdown",
     ]
@@ -509,7 +482,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .filter(Boolean);
 
     const THRESHOLD = 0.25; // fraction of viewport height required to advance
-    const THROTTLE_MS = 600; // minimum ms between snaps (prevents rapid skipping)
+    const THROTTLE_MS = 150; // minimum ms between snaps (prevents rapid skipping)
     let lastSnapTime = 0;
     let lastSnapPosition = 0; // stored in px, not as normalised 0-1
 
@@ -549,6 +522,12 @@ document.addEventListener("DOMContentLoaded", function () {
       end: () => ScrollTrigger.maxScroll(window),
       snap: {
         snapTo(value, self) {
+          // Skip initial snap on page load — browser is already at the correct position
+          if (lastSnapTime === 0) {
+            lastSnapTime = Date.now();
+            return value;
+          }
+
           const now = Date.now();
           if (now - lastSnapTime < THROTTLE_MS) {
             // Throttle: return last snapped position unchanged.
