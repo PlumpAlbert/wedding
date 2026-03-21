@@ -241,29 +241,29 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ========== DETAILS (ZIGZAG) ==========
-  const zigzagHeading = document.querySelector('#details h2');
+  const zigzagHeading = document.querySelector("#details h2");
   if (zigzagHeading) fadeUp(zigzagHeading);
 
-  const zigzagLine = document.querySelector('.zigzag-line');
+  const zigzagLine = document.querySelector(".zigzag-line");
   if (zigzagLine) {
     // Line is centered via left + margin-left (not transform),
     // so GSAP can safely own transform for scaleY animation.
     gsap.to(zigzagLine, {
       scaleY: 1,
       duration: 1.4,
-      ease: 'power2.inOut',
+      ease: "power2.inOut",
       scrollTrigger: {
-        trigger: '.zigzag',
-        start: 'top 80%',
-        toggleActions: 'play none none reverse',
+        trigger: ".zigzag",
+        start: "top 80%",
+        toggleActions: "play none none reverse",
       },
     });
   }
 
-  document.querySelectorAll('.zigzag-item').forEach((item) => {
-    const dot     = item.querySelector('.zigzag-dot');
-    const content = item.querySelector('.zigzag-content');
-    const isLeft  = item.classList.contains('zigzag-item--left');
+  document.querySelectorAll(".zigzag-item").forEach((item) => {
+    const dot     = item.querySelector(".zigzag-dot");
+    const content = item.querySelector(".zigzag-content");
+    const isLeft  = item.classList.contains("zigzag-item--left");
 
     if (dot) {
       gsap.fromTo(dot,
@@ -272,11 +272,11 @@ document.addEventListener("DOMContentLoaded", function () {
           scale: 1,
           opacity: 1,
           duration: 0.5,
-          ease: 'back.out(1.5)',
+          ease: "back.out(1.5)",
           scrollTrigger: {
             trigger: item,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            start: "top 85%",
+            toggleActions: "play none none reverse",
           },
         }
       );
@@ -292,11 +292,11 @@ document.addEventListener("DOMContentLoaded", function () {
           opacity: 1,
           duration: 0.7,
           delay: 0.15,
-          ease: 'power3.out',
+          ease: "power3.out",
           scrollTrigger: {
             trigger: item,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
+            start: "top 85%",
+            toggleActions: "play none none reverse",
           },
         }
       );
