@@ -29,6 +29,10 @@
 - Структура и порядок секций
 - `scroll-behavior: smooth` на десктопе (только на мобайле переопределяется)
 
+**Примечание — параллакс на мобайле:** Секции `#hero`, `#rsvp`, `#countdown` используют `background-attachment: fixed` для параллакс-эффекта. На мобайле iOS/Android `background-attachment: fixed` работает ненадёжно и отключается браузером самостоятельно — его потеря при добавлении `position: sticky` не является деградацией дизайна.
+
+**Примечание — `prefers-reduced-motion`:** `animations.js` завершает работу досрочно при `prefers-reduced-motion: reduce` — snap-скролл в таком случае тоже не активируется. Это намеренное поведение: snap-скролл является motion-эффектом.
+
 ---
 
 ## Детали: удаление section-divider
@@ -68,7 +72,9 @@
     scroll-behavior: auto;
   }
 
-  /* Карточечный вид: каждая секция прилипает к верху и выглядит как карточка */
+  /* Карточечный вид: каждая секция прилипает к верху и выглядит как карточка.
+     overflow: visible переопределяет .parallax-section { overflow: hidden },
+     которое иначе предотвращало бы работу position: sticky. */
   #hero,
   #welcome-message,
   #details,
@@ -78,6 +84,7 @@
   #countdown {
     position: sticky;
     top: 0;
+    overflow: visible;
     border-radius: 20px 20px 0 0;
     box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.12);
   }
@@ -92,101 +99,112 @@
 
 **Почему z-index не нужен:** секции расположены в DOM последовательно, браузер рисует их в том же порядке — каждая следующая карточка автоматически оказывается поверх предыдущей без явного z-index.
 
+**`overflow: visible` для параллакс-секций:** `.parallax-section` имеет `overflow: hidden` в существующем CSS. `position: sticky` внутри элемента с `overflow: hidden` не работает — sticky-элемент ведёт себя как `position: relative`. Переопределение `overflow: visible` на мобайле исправляет это. Потеря клиппинга на мобайле незначительна, так как `background-attachment: fixed` уже не работает на мобильных браузерах.
+
 ---
 
 ## Детали: GSAP snap-логика
+
+Использовать `gsap.matchMedia()` (API GSAP 3.11+, актуальный для используемой версии 3.12.2). `ScrollTrigger.matchMedia` устарел с 3.11 и выводит предупреждение в консоль.
 
 Добавить в `js/animations.js` новый блок сразу перед строкой `// Debug log`:
 
 ```js
 // ========== MOBILE SNAP SCROLL ==========
-ScrollTrigger.matchMedia({
-  "(max-width: 768px)": function () {
-    const SECTIONS = [
-      "#hero",
-      "#welcome-message",
-      "#details",
-      "#dress-code",
-      "#gallery",
-      "#rsvp",
-      "#countdown",
-    ]
-      .map((sel) => document.querySelector(sel))
-      .filter(Boolean);
+const snapMM = gsap.matchMedia();
+snapMM.add("(max-width: 768px)", () => {
+  const SECTIONS = [
+    "#hero",
+    "#welcome-message",
+    "#details",
+    "#dress-code",
+    "#gallery",
+    "#rsvp",
+    "#countdown",
+  ]
+    .map((sel) => document.querySelector(sel))
+    .filter(Boolean);
 
-    const THRESHOLD = 0.25; // 25% dvh до следующего снэпа
-    const THROTTLE_MS = 600;
-    let lastSnap = 0;
+  const THRESHOLD = 0.25; // 25% dvh до следующего снэпа
+  const THROTTLE_MS = 600;
+  let lastSnapTime = 0;
+  let lastSnapPosition = 0; // px, не timestamp
 
-    function buildSnapPoints() {
-      const maxScroll = ScrollTrigger.maxScroll(window);
-      const vh = window.innerHeight;
-      const points = [];
+  // buildSnapPoints вызывается при каждом snapTo.
+  // offsetTop корректен после ScrollTrigger.refresh() (происходит при инициализации).
+  // Для секций выше 1.2 × dvh добавляется вторая точка — «дно» секции,
+  // позволяющая прокрутить до последнего контента перед переходом к следующей.
+  function buildSnapPoints() {
+    const maxScroll = ScrollTrigger.maxScroll(window);
+    const vh = window.innerHeight;
+    const points = [];
 
-      SECTIONS.forEach((section) => {
-        const top = section.offsetTop;
-        points.push(top);
+    SECTIONS.forEach((section) => {
+      const top = section.offsetTop;
+      points.push(top);
 
-        // Для высоких секций добавляем точку «дна» —
-        // позицию, при которой последний контент секции виден
-        if (section.offsetHeight > vh * 1.5) {
-          points.push(top + section.offsetHeight - vh);
-        }
-      });
-
-      return points
-        .filter((p) => p >= 0 && p <= maxScroll)
-        .sort((a, b) => a - b);
-    }
-
-    ScrollTrigger.create({
-      snap: {
-        snapTo(value, self) {
-          const now = Date.now();
-          if (now - lastSnap < THROTTLE_MS) {
-            // Троттл: возвращаем последний снэп без изменений
-            return lastSnap / ScrollTrigger.maxScroll(window);
-          }
-
-          const maxScroll = ScrollTrigger.maxScroll(window);
-          const scrollY = value * maxScroll;
-          const vh = window.innerHeight;
-          const threshold = vh * THRESHOLD;
-          const points = buildSnapPoints();
-          const direction = self?.direction ?? 1;
-
-          // Ближайшая точка НИЖЕ текущей позиции
-          const nextPoint = points.find((p) => p > scrollY + 1);
-          // Ближайшая точка ВЫШЕ или равная текущей
-          const prevPoint = [...points].reverse().find((p) => p <= scrollY + 1);
-
-          let target;
-          if (direction > 0 && nextPoint !== undefined) {
-            // Скролл вниз: снэпаем вперёд если прокрутили > threshold за prevPoint
-            target =
-              scrollY - (prevPoint ?? 0) >= threshold ? nextPoint : (prevPoint ?? 0);
-          } else if (direction < 0 && prevPoint !== undefined) {
-            // Скролл вверх: снэпаем назад если прокрутили > threshold выше nextPoint
-            target =
-              (nextPoint ?? maxScroll) - scrollY >= threshold
-                ? prevPoint
-                : (nextPoint ?? maxScroll);
-          } else {
-            // Ближайшая точка по умолчанию
-            target = points.reduce((a, b) =>
-              Math.abs(b - scrollY) < Math.abs(a - scrollY) ? b : a
-            );
-          }
-
-          lastSnap = Date.now();
-          return target / maxScroll;
-        },
-        duration: { min: 0.4, max: 0.7 },
-        ease: "power2.inOut",
-        delay: 0.05,
-      },
+      if (section.offsetHeight > vh * 1.2) {
+        points.push(top + section.offsetHeight - vh);
+      }
     });
-  },
+
+    return points
+      .filter((p) => p >= 0 && p <= maxScroll)
+      .sort((a, b) => a - b);
+  }
+
+  ScrollTrigger.create({
+    snap: {
+      snapTo(value, self) {
+        const now = Date.now();
+        // Троттл: если с последнего снэпа прошло < THROTTLE_MS,
+        // возвращаем ту же позицию (в нормализованном виде 0–1).
+        if (now - lastSnapTime < THROTTLE_MS) {
+          return lastSnapPosition / ScrollTrigger.maxScroll(window);
+        }
+
+        const maxScroll = ScrollTrigger.maxScroll(window);
+        const scrollY = value * maxScroll;
+        const vh = window.innerHeight;
+        const threshold = vh * THRESHOLD;
+        const points = buildSnapPoints();
+        const direction = self?.direction ?? 1;
+
+        // Ближайшая точка НИЖЕ текущей позиции
+        const nextPoint = points.find((p) => p > scrollY + 1);
+        // Ближайшая точка ВЫШЕ или равная текущей
+        const prevPoint = [...points].reverse().find((p) => p <= scrollY + 1);
+
+        let target;
+        if (direction > 0 && nextPoint !== undefined) {
+          // Скролл вниз: снэпаем вперёд если прокрутили > threshold за prevPoint
+          target =
+            scrollY - (prevPoint ?? 0) >= threshold ? nextPoint : (prevPoint ?? 0);
+        } else if (direction < 0 && prevPoint !== undefined) {
+          // Скролл вверх: снэпаем назад если прокрутили > threshold выше nextPoint
+          target =
+            (nextPoint ?? maxScroll) - scrollY >= threshold
+              ? prevPoint
+              : (nextPoint ?? maxScroll);
+        } else {
+          // Ближайшая точка по умолчанию
+          target = points.reduce((a, b) =>
+            Math.abs(b - scrollY) < Math.abs(a - scrollY) ? b : a
+          );
+        }
+
+        lastSnapTime = now;
+        lastSnapPosition = target; // сохраняем px-позицию
+        return target / maxScroll;
+      },
+      duration: { min: 0.4, max: 0.7 },
+      ease: "power2.inOut",
+      delay: 0.05,
+    },
+  });
+
+  // Cleanup при выходе из media query (gsap.matchMedia возвращает cleanup-функцию)
+  return () => {};
 });
 ```
 
@@ -201,3 +219,4 @@ ScrollTrigger.matchMedia({
 - [ ] Секция `#details` (высокая) прокручивается внутри перед переходом к следующей
 - [ ] `section-divider` полностью удалены из HTML, CSS и JS
 - [ ] На десктопе ничего не изменилось
+- [ ] В консоли нет предупреждений о `ScrollTrigger.matchMedia`
