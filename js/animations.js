@@ -482,7 +482,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .filter(Boolean);
 
     const THRESHOLD = 0.25; // fraction of viewport height required to advance
-    const THROTTLE_MS = 150; // minimum ms between snaps (prevents rapid skipping)
+    const THROTTLE_MS = 300; // minimum ms between snaps (prevents rapid skipping)
     let lastSnapTime = 0;
     let lastSnapPosition = 0; // stored in px, not as normalised 0-1
 
@@ -500,7 +500,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const points = [];
 
       SECTIONS.forEach((section) => {
-        const top = Math.round(section.getBoundingClientRect().top + window.scrollY);
+        // offsetTop gives the layout position regardless of sticky visual offset.
+        // getBoundingClientRect().top would return 0 once a section is stuck,
+        // making all snap points collapse to the current scroll position.
+        const top = section.offsetTop;
         points.push(top);
 
         if (section.offsetHeight > vh * 1.2) {
@@ -522,12 +525,6 @@ document.addEventListener("DOMContentLoaded", function () {
       end: () => ScrollTrigger.maxScroll(window),
       snap: {
         snapTo(value, self) {
-          // Skip initial snap on page load — browser is already at the correct position
-          if (lastSnapTime === 0) {
-            lastSnapTime = Date.now();
-            return value;
-          }
-
           const now = Date.now();
           if (now - lastSnapTime < THROTTLE_MS) {
             // Throttle: return last snapped position unchanged.
