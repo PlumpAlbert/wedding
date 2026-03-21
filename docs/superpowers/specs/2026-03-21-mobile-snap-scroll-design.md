@@ -1,0 +1,203 @@
+# Дизайн: Мобильный снэп-скролл — «стопка карточек»
+
+**Дата:** 2026-03-21
+**Статус:** Approved
+
+---
+
+## Обзор
+
+Только на мобайле (≤ 768px): секции страницы приобретают вид карточек со скруглёнными верхними углами и тенью. При прокрутке следующая карточка выезжает снизу и накрывает предыдущую. GSAP ScrollTrigger автоматически доснэпывает к ближайшей секции, если пользователь прокрутил более 25% высоты экрана за границу секции — иначе возвращает назад. Троттл 600ms предотвращает пролёт через несколько секций.
+
+Декоративные разделители между секциями (`section-divider`) удаляются полностью — из HTML, CSS и JS.
+
+---
+
+## Что меняется
+
+| Файл | Изменение |
+|------|-----------|
+| `index.html` | Удалить 3 `<div class="section-divider">` (строки 60, 150, 197) |
+| `css/styles.css` | Удалить блок `.section-divider` / `.section-divider-line`; добавить мобильные стили карточек |
+| `js/animations.js` | Удалить блок `Section divider flourish`; добавить блок `MOBILE SNAP SCROLL` |
+
+---
+
+## Что НЕ меняется
+
+- Десктопный layout и все существующие GSAP-анимации
+- Структура и порядок секций
+- `scroll-behavior: smooth` на десктопе (только на мобайле переопределяется)
+
+---
+
+## Детали: удаление section-divider
+
+### HTML (`index.html`)
+
+Удалить три строки:
+```html
+<div class="section-divider" aria-hidden="true"><span class="section-divider-line"></span></div>
+```
+Встречаются на строках 60, 150, 197 (между `#hero`/`#welcome-message`, `#details`/`#dress-code`, `#dress-code`/`#gallery`).
+
+### CSS (`css/styles.css`)
+
+Удалить полностью:
+```css
+.section-divider { … }
+.section-divider-line { … }
+```
+
+### JS (`js/animations.js`)
+
+Удалить блок `// Section divider flourish (draw-in on scroll)` — цикл `document.querySelectorAll(".section-divider-line").forEach(…)`.
+
+---
+
+## Детали: мобильные стили карточек
+
+Добавить в `css/styles.css` новый блок `MOBILE SNAP` в конце файла (после всех остальных правил):
+
+```css
+/* ========================================
+   MOBILE SNAP SCROLL (≤ 768px)
+   ======================================== */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Карточечный вид: каждая секция прилипает к верху и выглядит как карточка */
+  #hero,
+  #welcome-message,
+  #details,
+  #dress-code,
+  #gallery,
+  #rsvp,
+  #countdown {
+    position: sticky;
+    top: 0;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Первая секция — без скруглений и тени (снизу ничего нет) */
+  #hero {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+```
+
+**Почему z-index не нужен:** секции расположены в DOM последовательно, браузер рисует их в том же порядке — каждая следующая карточка автоматически оказывается поверх предыдущей без явного z-index.
+
+---
+
+## Детали: GSAP snap-логика
+
+Добавить в `js/animations.js` новый блок сразу перед строкой `// Debug log`:
+
+```js
+// ========== MOBILE SNAP SCROLL ==========
+ScrollTrigger.matchMedia({
+  "(max-width: 768px)": function () {
+    const SECTIONS = [
+      "#hero",
+      "#welcome-message",
+      "#details",
+      "#dress-code",
+      "#gallery",
+      "#rsvp",
+      "#countdown",
+    ]
+      .map((sel) => document.querySelector(sel))
+      .filter(Boolean);
+
+    const THRESHOLD = 0.25; // 25% dvh до следующего снэпа
+    const THROTTLE_MS = 600;
+    let lastSnap = 0;
+
+    function buildSnapPoints() {
+      const maxScroll = ScrollTrigger.maxScroll(window);
+      const vh = window.innerHeight;
+      const points = [];
+
+      SECTIONS.forEach((section) => {
+        const top = section.offsetTop;
+        points.push(top);
+
+        // Для высоких секций добавляем точку «дна» —
+        // позицию, при которой последний контент секции виден
+        if (section.offsetHeight > vh * 1.5) {
+          points.push(top + section.offsetHeight - vh);
+        }
+      });
+
+      return points
+        .filter((p) => p >= 0 && p <= maxScroll)
+        .sort((a, b) => a - b);
+    }
+
+    ScrollTrigger.create({
+      snap: {
+        snapTo(value, self) {
+          const now = Date.now();
+          if (now - lastSnap < THROTTLE_MS) {
+            // Троттл: возвращаем последний снэп без изменений
+            return lastSnap / ScrollTrigger.maxScroll(window);
+          }
+
+          const maxScroll = ScrollTrigger.maxScroll(window);
+          const scrollY = value * maxScroll;
+          const vh = window.innerHeight;
+          const threshold = vh * THRESHOLD;
+          const points = buildSnapPoints();
+          const direction = self?.direction ?? 1;
+
+          // Ближайшая точка НИЖЕ текущей позиции
+          const nextPoint = points.find((p) => p > scrollY + 1);
+          // Ближайшая точка ВЫШЕ или равная текущей
+          const prevPoint = [...points].reverse().find((p) => p <= scrollY + 1);
+
+          let target;
+          if (direction > 0 && nextPoint !== undefined) {
+            // Скролл вниз: снэпаем вперёд если прокрутили > threshold за prevPoint
+            target =
+              scrollY - (prevPoint ?? 0) >= threshold ? nextPoint : (prevPoint ?? 0);
+          } else if (direction < 0 && prevPoint !== undefined) {
+            // Скролл вверх: снэпаем назад если прокрутили > threshold выше nextPoint
+            target =
+              (nextPoint ?? maxScroll) - scrollY >= threshold
+                ? prevPoint
+                : (nextPoint ?? maxScroll);
+          } else {
+            // Ближайшая точка по умолчанию
+            target = points.reduce((a, b) =>
+              Math.abs(b - scrollY) < Math.abs(a - scrollY) ? b : a
+            );
+          }
+
+          lastSnap = Date.now();
+          return target / maxScroll;
+        },
+        duration: { min: 0.4, max: 0.7 },
+        ease: "power2.inOut",
+        delay: 0.05,
+      },
+    });
+  },
+});
+```
+
+---
+
+## Критерии готовности
+
+- [ ] На мобайле (≤ 768px) секции выглядят как карточки со скруглёнными верхними углами
+- [ ] Прокрутка < 25% высоты экрана → снэп обратно к текущей секции
+- [ ] Прокрутка ≥ 25% → снэп к следующей/предыдущей секции
+- [ ] Быстрый непрерывный скролл не пролетает через несколько секций (троттл 600ms)
+- [ ] Секция `#details` (высокая) прокручивается внутри перед переходом к следующей
+- [ ] `section-divider` полностью удалены из HTML, CSS и JS
+- [ ] На десктопе ничего не изменилось
