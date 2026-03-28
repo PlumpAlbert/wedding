@@ -36,14 +36,17 @@ html {
   scroll-behavior: auto;
 }
 
-html,
 body {
+  margin: 0;
+  padding: 0;
   font-family: var(--base-font);
-  line-height: 1.6;
+  background-color: var(--bg-white);
   color: var(--black);
   overflow-x: clip;
-  background-color: var(--bg-green);
-  font-size: 16px;
+  /* overflow-x: clip (not hidden) — hidden creates a scroll container
+     which breaks position: sticky on child sections. */
+  /* No height: 100dvh here — it clamps the body to one screen and
+     breaks position: sticky stacking on mobile. */
 }
 
 /* Font Styles */
