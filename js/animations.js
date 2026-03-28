@@ -348,26 +348,27 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
-  // Color swatches inside cards: pop-in stagger
-  const cardSwatches = document.querySelectorAll(".dress-code-cards .color-swatch");
-  cardSwatches.forEach((swatch, i) => {
-    gsap.fromTo(
-      swatch,
-      { scale: 0, rotation: 180, opacity: 0 },
-      {
-        scale: 1,
-        rotation: 0,
-        opacity: 1,
-        duration: 0.6,
-        delay: i * 0.04,
-        ease: "elastic.out(1.2, 0.5)",
-        scrollTrigger: {
-          trigger: swatch.closest(".dress-code-card"),
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-      }
-    );
+  // Color swatches inside cards: pop-in stagger (index resets per card)
+  document.querySelectorAll(".dress-code-cards .dress-code-card").forEach((card) => {
+    card.querySelectorAll(".color-swatch").forEach((swatch, i) => {
+      gsap.fromTo(
+        swatch,
+        { scale: 0, rotation: 180, opacity: 0 },
+        {
+          scale: 1,
+          rotation: 0,
+          opacity: 1,
+          duration: 0.6,
+          delay: i * 0.04,
+          ease: "elastic.out(1.2, 0.5)",
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+    });
   });
 
   const dressCodeAvoid = document.querySelector(".dress-code-avoid");
