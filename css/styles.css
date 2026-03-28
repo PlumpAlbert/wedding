@@ -786,6 +786,15 @@ footer .copyright {
     max-width: 860px;
   }
 
+  /* ---- Dress code: two-column desktop layout ---- */
+  #dress-code .container {
+    max-width: 760px;
+  }
+
+  .dress-code-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
   /* Line centered between columns */
   .zigzag-line {
     left: 50%;
