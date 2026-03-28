@@ -41,13 +41,9 @@ body {
   font-family: var(--base-font);
   line-height: 1.6;
   color: var(--black);
-  /* overflow-x: clip (not hidden) — hidden creates a scroll container
-     which breaks position: sticky on child sections. */
   overflow-x: clip;
   background-color: var(--bg-green);
   font-size: 16px;
-  /* No height: 100dvh here — it clamps the body to one screen and
-     breaks position: sticky stacking on mobile. */
 }
 
 /* Font Styles */
@@ -253,20 +249,6 @@ body {
   opacity: 1;
 }
 
-#dress-code .dress-code-content {
-  max-width: 100%;
-  margin: 0 auto;
-  font-size: 1.1rem;
-  text-align: center;
-}
-
-#dress-code p {
-  margin-bottom: 1.2rem;
-}
-
-#dress-code strong {
-  color: var(--dark-green);
-}
 
 /* Color Palette */
 .color-palette {
@@ -286,6 +268,107 @@ body {
   box-shadow: var(--shadow-light);
   transition: var(--transition-standard);
   cursor: pointer;
+}
+
+/* Dress Code — новые компоненты */
+.dress-code-badge {
+  display: inline-block;
+  border: 1.5px solid var(--dark-pink);
+  color: var(--dark-pink);
+  padding: 5px 18px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-family: var(--base-font);
+  margin-bottom: 1rem;
+}
+
+.dress-code-intro {
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--black-pink);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  font-family: var(--base-font);
+}
+
+.dress-code-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.dress-code-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px 14px;
+  text-align: center;
+  box-shadow: var(--shadow-light);
+  border: 1px solid rgba(232, 165, 184, 0.3);
+}
+
+.outfit-icon {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto 10px;
+  background-color: var(--bg-white);
+  border-radius: 50%;
+  padding: 8px;
+}
+
+.outfit-label {
+  font-family: var(--base-font);
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--black);
+  margin-bottom: 4px;
+}
+
+.outfit-desc {
+  font-family: var(--base-font);
+  font-size: 0.8rem;
+  color: var(--black-pink);
+  margin-bottom: 12px;
+  line-height: 1.4;
+}
+
+.color-palette--sm {
+  gap: 5px;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.color-palette--sm .color-swatch {
+  width: 18px;
+  height: 18px;
+}
+
+.dress-code-avoid {
+  background: rgba(232, 165, 184, 0.12);
+  border: 1px solid rgba(232, 165, 184, 0.35);
+  border-radius: 12px;
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.dress-code-avoid__label {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--dark-pink);
+  margin-bottom: 6px;
+  font-family: var(--base-font);
+}
+
+.dress-code-avoid__list {
+  font-size: 0.85rem;
+  color: var(--black-pink);
+  font-family: var(--base-font);
 }
 
 /* ========================================
