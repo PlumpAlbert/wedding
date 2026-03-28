@@ -232,6 +232,7 @@ body {
    ======================================== */
 
 #dress-code {
+  min-height: 100dvh;
   background-color: var(--bg-white);
   position: relative;
 }
