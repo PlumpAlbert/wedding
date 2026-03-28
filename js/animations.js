@@ -319,31 +319,59 @@ document.addEventListener("DOMContentLoaded", function () {
   const dressCodeHeading = document.querySelector("#dress-code h2");
   if (dressCodeHeading) fadeUp(dressCodeHeading);
 
-  // Color swatches with a pop-in effect
-  const colorSwatches = document.querySelectorAll(".color-swatch");
-  colorSwatches.forEach((swatch, i) => {
+  const dressCodeBadge = document.querySelector(".dress-code-badge");
+  if (dressCodeBadge) fadeUp(dressCodeBadge, 0.1);
+
+  const dressCodeIntro = document.querySelector(".dress-code-intro");
+  if (dressCodeIntro) fadeUp(dressCodeIntro, 0.15);
+
+  // Cards: stagger fadeUp
+  const cardWoman = document.querySelector(".dress-code-card--woman");
+  const cardMan   = document.querySelector(".dress-code-card--man");
+  if (cardWoman && cardMan) {
+    gsap.fromTo(
+      [cardWoman, cardMan],
+      { y: 50, opacity: 0, scale: 0.95 },
+      {
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: cardWoman.parentElement,
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
+      }
+    );
+  }
+
+  // Color swatches inside cards: pop-in stagger
+  const cardSwatches = document.querySelectorAll(".dress-code-cards .color-swatch");
+  cardSwatches.forEach((swatch, i) => {
     gsap.fromTo(
       swatch,
-      {
-        scale: 0,
-        rotation: 180,
-        opacity: 0,
-      },
+      { scale: 0, rotation: 180, opacity: 0 },
       {
         scale: 1,
         rotation: 0,
         opacity: 1,
-        duration: 0.7,
-        delay: i * 0.1,
+        duration: 0.6,
+        delay: i * 0.04,
         ease: "elastic.out(1.2, 0.5)",
         scrollTrigger: {
-          trigger: swatch,
-          start: "top 90%",
+          trigger: swatch.closest(".dress-code-card"),
+          start: "top 85%",
           toggleActions: "play none none reverse",
         },
-      },
+      }
     );
   });
+
+  const dressCodeAvoid = document.querySelector(".dress-code-avoid");
+  if (dressCodeAvoid) fadeUp(dressCodeAvoid, 0.2);
 
   // ========== RSVP SECTION ==========
   const rsvpHeading = document.querySelector("#rsvp h2");
