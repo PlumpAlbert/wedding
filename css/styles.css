@@ -40,6 +40,8 @@ body {
   margin: 0;
   padding: 0;
   font-family: var(--base-font);
+  font-size: 16px;
+  line-height: 1.6;
   background-color: var(--bg-white);
   color: var(--black);
   overflow-x: clip;
@@ -275,7 +277,9 @@ body {
 
 /* Dress Code — новые компоненты */
 .dress-code-badge {
-  display: inline-block;
+  display: block;
+  width: fit-content;
+  margin: 0 auto 1rem;
   border: 1.5px solid var(--dark-pink);
   color: var(--dark-pink);
   padding: 5px 18px;
@@ -284,7 +288,6 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   font-family: var(--base-font);
-  margin-bottom: 1rem;
 }
 
 .dress-code-intro {
