@@ -32,8 +32,7 @@
 }
 
 html {
-  /* auto on mobile — GSAP controls scroll; smooth restored on desktop */
-  scroll-behavior: auto;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -69,7 +68,6 @@ body {
 #welcome-message,
 #details,
 #dress-code,
-#rsvp,
 #countdown {
   position: sticky;
   top: 0;
@@ -510,7 +508,7 @@ body {
    ======================================== */
 
 #details {
-  background: linear-gradient(180deg, var(--bg-white) 0%, rgba(255, 244, 227, 0.6) 50%, var(--bg-white) 100%);
+  background: var(--bg-white);
   min-height: 100vh;
   height: auto;
   display: flex;
@@ -635,18 +633,6 @@ body {
   font-size: 1.1rem;
 }
 
-/* ========================================
-   RSVP SECTION
-   ======================================== */
-
-#rsvp {
-  background-color: var(--bg-green);
-  min-height: 100vh;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 
 .rsvp-btn {
   background-color: var(--dark-green);
@@ -736,10 +722,6 @@ footer .copyright {
    and revert sticky card chrome.
    ======================================== */
 @media (min-width: 769px) {
-  html {
-    scroll-behavior: smooth;
-  }
-
   /* Restore parallax background on desktop */
   .parallax-section {
     background-attachment: fixed;
@@ -756,7 +738,6 @@ footer .copyright {
   #welcome-message,
   #details,
   #dress-code,
-  #rsvp,
   #countdown {
     position: relative;
     overflow: hidden;
