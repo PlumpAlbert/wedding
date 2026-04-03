@@ -109,6 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
       "var(--black-pink)",
       "var(--light-green)",
       "var(--dark-pink)",
+      "var(--gold)",
     ];
     for (let i = 0; i < particleCount; i++) {
       const p = document.createElement("span");
