@@ -555,32 +555,34 @@ body {
   position: relative;
   display: flex;
   align-items: center;
+  gap: 0.75rem;
   margin-bottom: 2rem;
   width: 100%;
-  /* Mobile: all items left-aligned regardless of --left/--right class */
   flex-direction: row;
 }
 .zigzag-item:last-child { margin-bottom: 0; }
 
-/* Mobile: dot is in static flow, not absolute */
-.zigzag-dot-wrap {
-  position: static;
-  transform: none;
+/* Icon + time — left column; title + description — .zigzag-content on the right */
+.zigzag-meta {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.45rem;
   flex-shrink: 0;
   z-index: 2;
 }
 
-/* DOM order for --left items is [content, dot-wrap].
-   order: -1 moves dot before content in flex flow. */
-.zigzag-item--left .zigzag-dot-wrap { order: -1; }
+.zigzag-dot-wrap {
+  position: static;
+  transform: none;
+  flex-shrink: 0;
+}
 
-/* Mobile: all cards fill remaining width to the right of the dot */
-.zigzag-content,
-.zigzag-item--left .zigzag-content,
-.zigzag-item--right .zigzag-content {
+.zigzag-content {
   width: auto;
   flex: 1;
-  margin-left: 1rem;
+  min-width: 0;
+  margin-left: 0;
   margin-right: 0;
   text-align: left;
   padding: 1.1rem 1.2rem;
@@ -591,25 +593,16 @@ body {
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.zz-header {
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-  margin-bottom: 0.4rem;
-  flex-wrap: wrap;
-  /* Mobile: all headers left-aligned */
-  justify-content: flex-start;
-}
-
 .zz-time {
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: var(--bg-white);
   background: var(--dark-green);
-  padding: 0.3rem 0.65rem;
+  padding: 0.28rem 0.55rem;
   border-radius: 100px;
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .zz-title {
@@ -617,6 +610,7 @@ body {
   font-size: 1.5rem;
   color: var(--dark-green);
   line-height: 1.2;
+  margin-bottom: 0.35rem;
 }
 
 .zz-desc {
@@ -789,32 +783,44 @@ a:hover {
     margin-left: -1px;
   }
 
-  /* Restore alternating flex directions */
-  .zigzag-item--left  { flex-direction: row; }
-  .zigzag-item--right { flex-direction: row-reverse; }
+  /* [meta: icon+time | content: title+desc]; --left mirrors so text sits left of the timeline */
+  .zigzag-item--left  { flex-direction: row-reverse; }
+  .zigzag-item--right { flex-direction: row; }
 
-  /* Dot: back to absolute center */
-  .zigzag-dot-wrap {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+  .zigzag-meta {
+    width: calc(50% - 2rem);
+    flex: none;
+    align-items: center;
+    gap: 0.65rem;
   }
 
-  /* Undo mobile order override */
-  .zigzag-item--left .zigzag-dot-wrap { order: 0; }
+  .zigzag-item--left .zigzag-meta {
+    justify-content: flex-end;
+  }
 
-  /* Cards: half-width with side margins */
-  .zigzag-content,
-  .zigzag-item--left  .zigzag-content,
-  .zigzag-item--right .zigzag-content {
+  .zigzag-item--right .zigzag-meta {
+    justify-content: flex-start;
+  }
+
+  .zigzag-dot-wrap {
+    position: static;
+    transform: none;
+  }
+
+  .zigzag-content {
     width: calc(50% - 2rem);
     flex: none;
   }
 
-  .zigzag-item--left  .zigzag-content { margin-right: 4rem; margin-left: 0;    text-align: right; }
-  .zigzag-item--right .zigzag-content { margin-left:  4rem; margin-right: 0;   text-align: left;  }
+  .zigzag-item--left .zigzag-content {
+    margin-right: 4rem;
+    margin-left: 0;
+    text-align: right;
+  }
 
-  /* Headers */
-  .zigzag-item--left  .zz-header { justify-content: flex-end;   }
-  .zigzag-item--right .zz-header { justify-content: flex-start; }
+  .zigzag-item--right .zigzag-content {
+    margin-left: 4rem;
+    margin-right: 0;
+    text-align: left;
+  }
 }
