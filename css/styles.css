@@ -11,13 +11,14 @@
 
 /* Color Variables */
 :root {
-  --dark-pink: #F36787;
-  --black-pink: #f79aaf;
-  --light-green: #99a982;
-  --dark-green: #697c60;
+  --dark-pink: #B8788A;
+  --black-pink: #D4A8B4;
+  --light-green: #92A47C;
+  --dark-green: #607258;
+  --gold: #BFA06A;
   --white: #f9f5f0;
   --black: #241e19;
-  --bg-white: #fff4e3;
+  --bg-white: #FAF0E2;
   --bg-green: #e6e7d9;
   --shadow-light: 0 4px 8px rgba(0, 0, 0, 0.1);
   --shadow-medium: 0 5px 15px rgba(105, 124, 96, 0.2);
