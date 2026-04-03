@@ -54,7 +54,7 @@ body {
   font-family: var(--header-font);
 }
 
-.content-section h2.handwritten::after {
+.content-section:not(#welcome-message) h2.handwritten::after {
   content: " ✦";
   color: var(--gold);
   font-size: 0.6em;
