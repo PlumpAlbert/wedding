@@ -1,7 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <circle cx="32" cy="13" r="8" fill="#b8c9a8"/>
-  <path d="M18 28 L14 58 H50 L46 28 L40 34 L32 30 L24 34 Z" fill="#8a9b6c"/>
-  <path d="M26 28 L32 30 L38 28 L36 46 L32 50 L28 46 Z" fill="#f8c6d0"/>
-  <path d="M26 28 L18 28 L24 34" fill="none" stroke="#6b7a4f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M38 28 L46 28 L40 34" fill="none" stroke="#6b7a4f" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text
+    x="32"
+    y="32"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-size="44"
+    font-family="Apple Color Emoji, Segoe UI Emoji, Noto Color Emoji, sans-serif"
+  >🤵🏻‍♂️</text>
 </svg>

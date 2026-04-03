@@ -14,7 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
   gsap.registerPlugin(ScrollTrigger);
 
   // Helper: fade-up with more dynamic options
-  function fadeUp(element, delay = 0, y = 50) {
+  // scrollStart: e.g. "top bottom" = fire as soon as the element enters the viewport (good for blocks at the bottom of a tall section on mobile).
+  function fadeUp(element, delay = 0, y = 50, scrollStart = "top 85%") {
     gsap.fromTo(
       element,
       {
@@ -31,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ease: "power3.out",
         scrollTrigger: {
           trigger: element,
-          start: "top 85%",
+          start: scrollStart,
           end: "bottom 15%",
           toggleActions: "play none none reverse",
         },
@@ -372,7 +373,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   const dressCodeAvoid = document.querySelector(".dress-code-avoid");
-  if (dressCodeAvoid) fadeUp(dressCodeAvoid, 0.2);
+  if (dressCodeAvoid) fadeUp(dressCodeAvoid, 0.2, 50, "top bottom");
 
   // ========== RSVP SECTION ==========
   const rsvpButton = document.querySelector(".rsvp-btn");
@@ -431,31 +432,14 @@ document.addEventListener("DOMContentLoaded", function () {
       repeatDelay: 1.5,
     });
 
-    // Entrance animation
-    gsap.fromTo(
-      rsvpButton,
-      {
-        scale: 0,
-        opacity: 0,
-        rotation: -180,
-      },
-      {
-        scale: 1,
-        opacity: 1,
-        rotation: 0,
-        duration: 1,
-        ease: "back.out(1.7)",
-        scrollTrigger: {
-          trigger: rsvpButton,
-          start: "top 80%",
-          toggleActions: "play none none reverse",
-        },
-      },
-    );
+
   }
 
   // ========== PARALLAX EFFECT (optional) ==========
-  const parallaxSections = document.querySelectorAll(".parallax-section");
+  // Skip #hero — parallax scrub + fixed bg read as “hero stays, next section moves over”.
+  const parallaxSections = document.querySelectorAll(
+    ".parallax-section:not(#hero)",
+  );
   parallaxSections.forEach((section) => {
     gsap.to(section, {
       backgroundPosition: "50% 100px",

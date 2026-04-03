@@ -45,9 +45,7 @@ body {
   color: var(--black);
   overflow-x: clip;
   /* overflow-x: clip (not hidden) — hidden creates a scroll container
-     which breaks position: sticky on child sections. */
-  /* No height: 100dvh here — it clamps the body to one screen and
-     breaks position: sticky stacking on mobile. */
+     which can break nested sticky/fixed layout. */
 }
 
 /* Font Styles */
@@ -60,8 +58,8 @@ body {
 }
 
 /* ========================================
-   MOBILE CARD STACK
-   Base styles (mobile): sections are sticky cards that stack on scroll.
+   SECTION FLOW
+   Normal document scroll — no sticky stacked “cards”.
    ======================================== */
 
 #hero,
@@ -69,15 +67,8 @@ body {
 #details,
 #dress-code,
 #countdown {
-  position: sticky;
-  top: 0;
-  overflow: visible;
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 -6px 24px rgba(0, 0, 0, 0.12);
-}
-
-/* First section sits at the bottom of the stack — no card chrome needed */
-#hero {
+  position: relative;
+  overflow: hidden;
   border-radius: 0;
   box-shadow: none;
 }
@@ -185,7 +176,7 @@ body {
 .content-section h2 {
   text-align: center;
   font-size: 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
   color: var(--dark-green);
 }
 
@@ -233,6 +224,7 @@ body {
   min-height: 100dvh;
   background-color: var(--bg-white);
   position: relative;
+  overflow: visible;
 }
 
 #dress-code::before {
@@ -265,8 +257,8 @@ body {
 }
 
 .color-swatch {
-  width: 60px;
-  height: 60px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
   border: 3px solid white;
   box-shadow: var(--shadow-light);
@@ -315,8 +307,8 @@ body {
 }
 
 .outfit-icon {
-  width: 64px;
-  height: 64px;
+  width: 128px;
+  height: 128px;
   object-fit: contain;
   display: block;
   margin: 0 auto 10px;
@@ -328,14 +320,14 @@ body {
 .outfit-label {
   font-family: var(--base-font);
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
   color: var(--black);
   margin-bottom: 4px;
 }
 
 .outfit-desc {
   font-family: var(--base-font);
-  font-size: 0.8rem;
+  font-size: 1rem;
   color: var(--black-pink);
   margin-bottom: 12px;
   line-height: 1.4;
@@ -348,8 +340,8 @@ body {
 }
 
 .color-palette--sm .color-swatch {
-  width: 18px;
-  height: 18px;
+  width: 32px;
+  height: 32px;
 }
 
 .dress-code-avoid {
@@ -733,21 +725,14 @@ footer .copyright {
     transform: scale(1.01);
   }
 
-  /* Revert sticky card chrome — desktop scrolls naturally */
-  #hero,
-  #welcome-message,
-  #details,
-  #dress-code,
-  #countdown {
-    position: relative;
+  /* Per-section overflow (dress-code ::before wash).
+     Hero: scroll attachment so the block scrolls away with the page — not a fixed
+     backdrop that the welcome section slides over. */
+  #hero {
     overflow: hidden;
-    border-radius: 0;
-    box-shadow: none;
+    background-attachment: scroll;
   }
-
-  /* Restore per-section overflow settings */
-  #hero        { overflow: hidden; }
-  #dress-code  { overflow: visible; } /* keeps ::before pseudo-element visible */
+  #dress-code { overflow: visible; }
 
   /* Hover effects — only meaningful with a pointer device */
   .color-swatch:hover {
