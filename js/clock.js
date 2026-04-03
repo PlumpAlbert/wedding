@@ -50,7 +50,7 @@
     confettiFired = true;
     const container = document.querySelector('#countdown .content');
     if (!container) return;
-    const colors = ['#f79aaf', '#99a982', '#697c60', '#f9f5f0'];
+    const colors = ['#D4A8B4', '#92A47C', '#607258', '#BFA06A'];
     const shapes = [];
     for (let i = 0; i < 50; i++) {
       const s = document.createElement('div');
