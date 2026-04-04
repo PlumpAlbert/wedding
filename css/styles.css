@@ -162,8 +162,10 @@ body {
 
 #hero .date,
 #hero .location {
-  font-size: clamp(1.1rem, 4vw, 1.5rem);
+  font-size: clamp(1.2rem, 5vw, 1.5rem);
+  font-weight: 500;
   color: var(--dark-green);
+  opacity: 0.86;
 }
 
 #hero .date {

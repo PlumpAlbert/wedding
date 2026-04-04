@@ -80,9 +80,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const heroContent = document.querySelector("#hero .content");
   if (heroContent) {
     // Split hero content into children for staggered entrance
-    const heroChildren = heroContent.children;
+    const heroHeader = heroContent.querySelector("h1");
+    const heroChildren = heroContent.querySelectorAll("p");
     gsap.fromTo(
-      heroChildren,
+      heroHeader,
       {
         y: 40,
         opacity: 0,
@@ -93,55 +94,70 @@ document.addEventListener("DOMContentLoaded", function () {
         opacity: 1,
         scale: 1,
         duration: 1.5,
-        stagger: 0.3,
         ease: "elastic.out(1, 0.5)",
         delay: 0.5,
+      },
+    );
+    gsap.fromTo(
+      heroChildren,
+      {
+        y: 40,
+        opacity: 0,
+        scale: 0.9,
+      },
+      {
+        y: 0,
+        opacity: 0.9,
+        scale: 1,
+        duration: 1.5,
+        ease: "elastic.out(1, 0.5)",
+        delay: 0.8,
       },
     );
   }
 
   // Hero hearts fall (♥)
-  const heroParticlesEl = document.getElementById("hero-particles");
-  if (heroParticlesEl) {
-    const particleCount = 48;
-    const colors = [
-      "var(--dark-green)",
-      "var(--black-pink)",
-      "var(--light-green)",
-      "var(--dark-pink)",
-      "var(--gold)",
-    ];
-    for (let i = 0; i < particleCount; i++) {
-      const p = document.createElement("span");
-      p.className = "hero-particle hero-particle--heart";
-      p.setAttribute("aria-hidden", "true");
-      p.textContent = "\u2665";
-      p.style.left = Math.random() * 100 + "%";
-      p.style.top = -5 - Math.random() * 25 + "%";
-      p.style.setProperty("--rotate", (Math.random() - 0.5) * 60 + "deg");
-      p.style.color = colors[i % colors.length];
-      heroParticlesEl.appendChild(p);
-      const duration = 14 + Math.random() * 10;
-      const xDrift = (Math.random() - 0.5) * 70;
-      gsap.to(p, {
-        y: "120vh",
-        x: xDrift,
-        rotation: (Math.random() - 0.5) * 40,
-        duration,
-        ease: "none",
-        repeat: -1,
-        delay: Math.random() * duration,
-      });
-      gsap.to(p, {
-        opacity: 0.12,
-        duration: duration * 0.35,
-        repeat: -1,
-        yoyo: true,
-        ease: "sine.inOut",
-        delay: i * 0.3,
-      });
-    }
-  }
+  // const heroParticlesEl = document.getElementById("hero-particles");
+  // if (heroParticlesEl) {
+  //   const particleCount = 48;
+  //   const colors = [
+  //     "var(--dark-green)",
+  //     "var(--black-pink)",
+  //     "var(--light-green)",
+  //     "var(--dark-pink)",
+  //     "var(--gold)",
+  //   ];
+  //   for (let i = 0; i < particleCount; i++) {
+  //     const p = document.createElement("span");
+  //     p.className = "hero-particle hero-particle--heart";
+  //     p.setAttribute("aria-hidden", "true");
+  //     p.textContent = "\u2665";
+  //     p.style.left = Math.random() * 100 + "%";
+  //     p.style.top = -5 - Math.random() * 25 + "%";
+  //     p.style.setProperty("--rotate", (Math.random() - 0.5) * 60 + "deg");
+  //     p.style.color = colors[i % colors.length];
+  //     heroParticlesEl.appendChild(p);
+  //     const duration = 14 + Math.random() * 10;
+  //     const xDrift = (Math.random() - 0.5) * 70;
+  //     gsap.to(p, {
+  //       y: "120vh",
+  //       x: xDrift,
+  //       rotation: (Math.random() - 0.5) * 40,
+  //       duration,
+  //       ease: "none",
+  //       repeat: -1,
+  //       delay: Math.random() * duration,
+  //     });
+  //     gsap.to(p, {
+  //       opacity: 0.12,
+  //       duration: duration * 0.35,
+  //       repeat: -1,
+  //       yoyo: true,
+  //       ease: "sine.inOut",
+  //       delay: i * 0.3,
+  //     });
+  //   }
+  // }
 
   // Animate hero decorations (floating + gentle pulse)
   const heroDecorations = document.querySelectorAll(".hero-decoration");
@@ -263,13 +279,14 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   document.querySelectorAll(".zigzag-item").forEach((item) => {
-    const dot     = item.querySelector(".zigzag-dot");
+    const dot = item.querySelector(".zigzag-dot");
     const content = item.querySelector(".zigzag-content");
-    const isLeft  = item.classList.contains("zigzag-item--left");
+    const isLeft = item.classList.contains("zigzag-item--left");
     const startCondition = "top 90%";
 
     if (dot) {
-      gsap.fromTo(dot,
+      gsap.fromTo(
+        dot,
         { scale: 0, opacity: 0 },
         {
           scale: 1,
@@ -281,14 +298,15 @@ document.addEventListener("DOMContentLoaded", function () {
             start: startCondition,
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
     }
 
     if (content) {
       // --left card slides in from the right (x: 30 → 0)
       // --right card slides in from the left (x: -30 → 0)
-      gsap.fromTo(content,
+      gsap.fromTo(
+        content,
         { x: isLeft ? 30 : -30, opacity: 0 },
         {
           x: 0,
@@ -301,7 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
             start: startCondition,
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
     }
   });
@@ -329,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Cards: stagger fadeUp
   const cardWoman = document.querySelector(".dress-code-card--woman");
-  const cardMan   = document.querySelector(".dress-code-card--man");
+  const cardMan = document.querySelector(".dress-code-card--man");
   if (cardWoman && cardMan) {
     gsap.fromTo(
       [cardWoman, cardMan],
@@ -346,32 +364,34 @@ document.addEventListener("DOMContentLoaded", function () {
           start: "top 85%",
           toggleActions: "play none none reverse",
         },
-      }
+      },
     );
   }
 
   // Color swatches inside cards: pop-in stagger (index resets per card)
-  document.querySelectorAll(".dress-code-cards .dress-code-card").forEach((card) => {
-    card.querySelectorAll(".color-swatch").forEach((swatch, i) => {
-      gsap.fromTo(
-        swatch,
-        { scale: 0, rotation: 180, opacity: 0 },
-        {
-          scale: 1,
-          rotation: 0,
-          opacity: 1,
-          duration: 0.6,
-          delay: i * 0.04,
-          ease: "elastic.out(1.2, 0.5)",
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+  document
+    .querySelectorAll(".dress-code-cards .dress-code-card")
+    .forEach((card) => {
+      card.querySelectorAll(".color-swatch").forEach((swatch, i) => {
+        gsap.fromTo(
+          swatch,
+          { scale: 0, rotation: 180, opacity: 0 },
+          {
+            scale: 1,
+            rotation: 0,
+            opacity: 1,
+            duration: 0.6,
+            delay: i * 0.04,
+            ease: "elastic.out(1.2, 0.5)",
+            scrollTrigger: {
+              trigger: card,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
           },
-        }
-      );
+        );
+      });
     });
-  });
 
   const dressCodeAvoid = document.querySelector(".dress-code-avoid");
   if (dressCodeAvoid) fadeUp(dressCodeAvoid, 0.2, 50, "top bottom");
@@ -432,8 +452,6 @@ document.addEventListener("DOMContentLoaded", function () {
       ease: "sine.inOut",
       repeatDelay: 1.5,
     });
-
-
   }
 
   // ========== PARALLAX EFFECT (optional) ==========
