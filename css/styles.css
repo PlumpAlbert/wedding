@@ -631,6 +631,55 @@ body {
   line-height: 1.5;
 }
 
+.map-links {
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+.map-links--welcome {
+  margin-top: 0.35rem;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+}
+
+.map-links--zigzag {
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+}
+
+.map-link {
+  color: var(--dark-green);
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: var(--transition-color);
+}
+
+.map-link:hover {
+  color: var(--dark-pink);
+}
+
+.map-link:focus {
+  outline: none;
+}
+
+.map-link:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.map-link-sep {
+  display: inline-block;
+  margin: 0 0.4rem;
+  opacity: 0.4;
+  font-weight: 400;
+  text-decoration: none;
+  user-select: none;
+}
+
 .zigzag-dot {
   width: 42px;
   height: 42px;
