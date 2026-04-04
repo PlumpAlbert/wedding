@@ -3,6 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Приглашение на свадьбу Зои и Матвея — 24 июня 2026, Санкт-Петербург. Программа дня, дресс-код и обратный отсчёт."
+    />
+    <meta name="theme-color" content="#92A47C" />
+    <meta property="og:title" content="Свадьба Зои и Матвея — 24 июня 2026" />
+    <meta
+      property="og:description"
+      content="Приглашение в Санкт-Петербург: программа дня, дресс-код. Ждём вас 24 июня 2026."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta name="twitter:card" content="summary" />
     <title>Свадебное приглашение</title>
     <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="css/fonts.css" />
@@ -20,6 +33,7 @@
           type="image/svg+xml"
           data="img/assets/hero_top.svg"
           width="100%"
+          aria-hidden="true"
         ></object>
       </div>
       <div class="content">
@@ -32,6 +46,7 @@
           type="image/svg+xml"
           data="img/assets/hero_bottom.svg"
           width="100%"
+          aria-hidden="true"
         ></object>
       </div>
     </header>
@@ -48,7 +63,7 @@
           <p class="date">24 / 06 / 2026</p>
 
           <p class="location">
-            <label for="location" class="handwritten">Локация:</label>
+            <span class="handwritten location-label">Локация:</span>
             Россия, г. Санкт-Петербург, Английская набережная, 28
           </p>
         </div>
@@ -191,8 +206,17 @@
 
     <footer class="parallax-section" id="countdown">
       <div class="content">
-        <h2 class="handwritten">Мы будем рады видеть вас!</h2>
-        <button class="rsvp-btn">Подтвердить участие</button>
+        <h2 class="handwritten" id="rsvp-heading">
+          Мы будем рады видеть вас!
+        </h2>
+        <!-- Замените wedding@example.com на вашу почту или href на ссылку формы (Google Forms и т.д.) -->
+        <a
+          class="rsvp-btn"
+          href="mailto:wedding@example.com?subject=%D0%9F%D0%BE%D0%B4%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B5%D0%BD%D0%B8%D0%B5%20%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D1%81%D0%B2%D0%B0%D0%B4%D1%8C%D0%B1%D1%83&body=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%0A%0A%D0%9C%D1%8B%20%D0%BF%D0%BE%D0%B4%D1%82%D0%B2%D0%B5%D1%80%D0%B6%D0%B4%D0%B0%D0%B5%D0%BC%20%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%B8%D0%B5%20%D0%BD%D0%B0%20%D1%81%D0%B2%D0%B0%D0%B4%D1%8C%D0%B1%D0%B5%2024%20%D0%B8%D1%8E%D0%BD%D1%8F%202026.%0A%0A%D0%98%D0%BC%D0%B5%D0%BD%D0%B0%20%D0%B3%D0%BE%D1%81%D1%82%D0%B5%D0%B9%3A%0A%D0%9A%D0%BE%D0%BB%D0%B8%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%BE%20%D0%BC%D0%B5%D1%81%D1%82%3A%0A"
+          aria-describedby="rsvp-heading"
+        >
+          Подтвердить участие
+        </a>
         <div class="countdown-heart">
           <svg class="countdown-heart-shape" viewBox="0 0 100 100" aria-hidden="true">
             <path class="countdown-heart-path" d="M50 88 C50 88 8 52 8 28 C8 12 22 4 34 4 C42 4 50 12 50 12 C50 12 58 4 66 4 C78 4 92 12 92 28 C92 52 50 88 50 88 Z" />

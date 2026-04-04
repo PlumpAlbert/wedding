@@ -1,6 +1,10 @@
 // Countdown Timer with digit flip and confetti at zero
 (function () {
-  const weddingDate = new Date("June 24, 2026 16:00:00").getTime();
+  const reduceMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
+  // 16:00 по Москве (Санкт-Петербург) — не зависит от локального пояса браузера
+  const weddingDate = new Date("2026-06-24T16:00:00+03:00").getTime();
   const digitIds = ['days', 'hours', 'minutes', 'seconds'];
   const prevValues = { days: '00', hours: '00', minutes: '00', seconds: '00' };
   let countdownInterval;
@@ -11,8 +15,12 @@
     if (!el) return;
     const inner = el.querySelector('.countdown-digit-inner');
     if (!inner || inner.textContent === newStr) return;
+    if (reduceMotion || typeof gsap === 'undefined') {
+      inner.textContent = newStr;
+      return;
+    }
     const parent = el.closest('.countdown-digit');
-    if (!parent || typeof gsap === 'undefined') {
+    if (!parent) {
       inner.textContent = newStr;
       return;
     }
@@ -39,6 +47,7 @@
   }
 
   function pulseCountdown() {
+    if (reduceMotion) return;
     const heart = document.querySelector('.countdown-heart');
     if (heart && typeof gsap !== 'undefined') {
       gsap.to(heart, { scale: 1.04, duration: 0.12, yoyo: true, repeat: 1 });
@@ -46,7 +55,7 @@
   }
 
   function fireConfetti() {
-    if (confettiFired || typeof gsap === 'undefined') return;
+    if (reduceMotion || confettiFired || typeof gsap === 'undefined') return;
     confettiFired = true;
     const container = document.querySelector('#countdown .content');
     if (!container) return;

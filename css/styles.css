@@ -223,10 +223,10 @@ body {
 #welcome-message p.date {
   font-size: 2rem;
   color: var(--gold);
-  opacity: 0.85;
+  opacity: 0;
 }
 
-#welcome-message p.location label {
+#welcome-message p.location .location-label {
   color: var(--dark-green);
   font-size: 2rem;
   display: block;
@@ -660,6 +660,18 @@ body {
   box-shadow: var(--shadow-light);
   position: relative;
   overflow: hidden;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+}
+
+.rsvp-btn:focus {
+  outline: none;
+}
+
+.rsvp-btn:focus-visible {
+  outline: 3px solid var(--gold);
+  outline-offset: 4px;
 }
 
 .rsvp-btn:active {

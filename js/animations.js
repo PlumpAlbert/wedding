@@ -116,49 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
-  // Hero hearts fall (♥)
-  // const heroParticlesEl = document.getElementById("hero-particles");
-  // if (heroParticlesEl) {
-  //   const particleCount = 48;
-  //   const colors = [
-  //     "var(--dark-green)",
-  //     "var(--black-pink)",
-  //     "var(--light-green)",
-  //     "var(--dark-pink)",
-  //     "var(--gold)",
-  //   ];
-  //   for (let i = 0; i < particleCount; i++) {
-  //     const p = document.createElement("span");
-  //     p.className = "hero-particle hero-particle--heart";
-  //     p.setAttribute("aria-hidden", "true");
-  //     p.textContent = "\u2665";
-  //     p.style.left = Math.random() * 100 + "%";
-  //     p.style.top = -5 - Math.random() * 25 + "%";
-  //     p.style.setProperty("--rotate", (Math.random() - 0.5) * 60 + "deg");
-  //     p.style.color = colors[i % colors.length];
-  //     heroParticlesEl.appendChild(p);
-  //     const duration = 14 + Math.random() * 10;
-  //     const xDrift = (Math.random() - 0.5) * 70;
-  //     gsap.to(p, {
-  //       y: "120vh",
-  //       x: xDrift,
-  //       rotation: (Math.random() - 0.5) * 40,
-  //       duration,
-  //       ease: "none",
-  //       repeat: -1,
-  //       delay: Math.random() * duration,
-  //     });
-  //     gsap.to(p, {
-  //       opacity: 0.12,
-  //       duration: duration * 0.35,
-  //       repeat: -1,
-  //       yoyo: true,
-  //       ease: "sine.inOut",
-  //       delay: i * 0.3,
-  //     });
-  //   }
-  // }
-
   // Animate hero decorations (floating + gentle pulse)
   const heroDecorations = document.querySelectorAll(".hero-decoration");
   heroDecorations.forEach((wrapper, i) => {
@@ -216,7 +173,7 @@ document.addEventListener("DOMContentLoaded", function () {
       {
         scale: 1,
         rotation: 0,
-        opacity: 0.54,
+        opacity: 1,
         duration: 0.9,
         ease: "back.out(1.4)",
         scrollTrigger: {
@@ -338,9 +295,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ========== DRESS CODE ==========
   const dressCodeHeading = document.querySelector("#dress-code h2");
   if (dressCodeHeading) fadeUp(dressCodeHeading);
-
-  const dressCodeBadge = document.querySelector(".dress-code-badge");
-  if (dressCodeBadge) fadeUp(dressCodeBadge, 0.1);
 
   const dressCodeIntro = document.querySelector(".dress-code-intro");
   if (dressCodeIntro) fadeUp(dressCodeIntro, 0.15);
@@ -494,6 +448,4 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
-  // Debug log
-  console.log("Enhanced scroll animations initialized.");
 });
