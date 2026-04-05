@@ -72,12 +72,17 @@ body {
    ======================================== */
 
 #hero,
-#welcome-message,
 #details,
 #dress-code,
 #countdown {
   position: relative;
   overflow: hidden;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#welcome-message {
+  position: relative;
   border-radius: 0;
   box-shadow: none;
 }
@@ -208,8 +213,55 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  /* allow top ornament to overflow upward */
+  overflow: visible;
 }
 
+/* ---- arch frame ---- */
+.welcome-arch {
+  position: relative;
+  width: 100%;
+  max-width: 330px;
+  margin: 0 auto;
+  /* top padding clears the ornament overlap; bottom padding
+     = half of welcome-bottom.svg height (132px / 2 = 66px)
+     so the sides end exactly at the ornament's centre line */
+  padding: 3.5rem 1.5rem 66px;
+  margin-top: 3rem;
+
+  border-top:   1.5px solid rgba(146, 164, 124, 0.7);
+  border-left:  1.5px solid rgba(146, 164, 124, 0.7);
+  border-right: 1.5px solid rgba(146, 164, 124, 0.7);
+  /* top rounded like an arch; sides straight */
+  border-radius: 50% 50% 0 0 / 72px 72px 0 0;
+}
+
+/* top ornament sits centered on the arch line */
+.welcome-ornament-top {
+  position: absolute;
+  top: -20px;          /* half of svg height (40px / 2) */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 330px;
+  max-width: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* bottom ornament: absolutely positioned so its vertical
+   centre aligns with the end of the arch side lines */
+.welcome-ornament-bottom {
+  position: absolute;
+  bottom: -66px;       /* half of svg height (132px / 2) */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 333px;
+  max-width: 100%;
+  display: block;
+  pointer-events: none;
+}
+
+/* ---- inner content ---- */
 #welcome-message .story-content {
   max-width: 100%;
   margin: 0 auto;
